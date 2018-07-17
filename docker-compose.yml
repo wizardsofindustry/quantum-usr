@@ -1,0 +1,61 @@
+---
+#######################################################################
+#
+# USR SYSTEM COMPOSE FILE
+#
+# This Docker Compose configuration file sets a Docker network
+# resembling the production system environment hosting the
+# application.
+#
+# In addition to the environment variables recognized by the
+# application, the following variables configure the behavior of the
+# spawned containers:
+#
+# USR_HTTP_PORT:
+#   Specifies the port to which the HTTP server binds (default: 8443).
+# USR_RDBMS_PORT:
+#   Specifies the port to which the Relational Database Management
+#   System (RDBMS) binds.
+# USR_AMQP_PORT:
+#   Specifies the port to which the Aorta backend binds (default: 5672).
+#   Consumers may connect to this port in order to *receive* messages
+#   published in the system.
+# USR_MQADM_PORT:
+#   Specifies the port to which the administrative web interface of
+#   the message broker backend binds (default: 8161).
+#
+#######################################################################
+version: '3'
+services:
+  usr:
+    build: .
+    environment:
+    - SQ_TESTING_STAGE=${SQ_TESTING_STAGE-production}
+    - SQ_DISABLE_AUTH=${SQ_DISABLE_AUTH-false}
+    - USR_SECRET_KEY=30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460
+    - USR_RDBMS_DSN=postgresql+psycopg2://usr:usr@rdbms:5432/usr
+    depends_on:
+    - rdbms
+    volumes:
+    - "./etc:/etc/usr:ro"
+    expose:
+    - "8443"
+  http:
+    image: nginx:1.15.0-alpine
+    volumes:
+    - "./etc/certs/snakeoil.crt:/etc/ssl/certs/snakeoil.crt:ro"
+    - "./etc/private/snakeoil.pem:/etc/ssl/private/snakeoil.pem:ro"
+    - "./dev/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
+    ports:
+    - "127.0.0.1:${USR_HTTP_PORT-8443}:443"
+  rdbms:
+    image: postgres:10.3-alpine
+    restart: always
+    environment:
+    - POSTGRES_DB=usr
+    - POSTGRES_USER=usr
+    - POSTGRES_PASSWORD=usr
+    expose:
+    - 5432
+    ports:
+    - "127.0.0.1:${USR_RDBMS_PORT-5432}:5432"
