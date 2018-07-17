@@ -1,1 +1,21 @@
 ---
+relations:
+- relname: emailaddresses
+  classname: EmailAddress
+  description: >
+    Maps email addresses to Subjects using the Global
+    Subject Identifier (GSID).
+  columns:
+  - name: gsid
+    primary_key: true
+    type: uuid
+    description: >
+      Specifies the Global Subject Identifier (GSID), uniquely
+      identifying a Subject within the boundaries of a Quantum
+      system.
+  - name: email
+    type: string
+    unique: true
+    nullable: false
+    description: >
+      The email address that resolves to the `gsid`.
