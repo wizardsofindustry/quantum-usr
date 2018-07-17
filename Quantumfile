@@ -1,0 +1,160 @@
+---
+# General project information.
+project:
+  version: 1.0.0
+
+
+# This section describes the characteristics of the SG generated
+# application.
+app:
+
+  # Indicates that the application requires a relational database systen. Quantum
+  # services are assumed to connect to one RDBMS only.
+  rdbms: true
+
+  # Specifies the roles that the application has. Valid values are
+  # 'http', 'handler', 'runner', 'listener' or 'scheduler'.
+  roles:
+  - http
+
+
+# Basic Python package configuration and settings.
+package:
+  language: python
+
+  # This is the name of the Python module that contains the application
+  # code, and is also used as a general identifier for this service.
+  name: usr
+
+  # Python module requirements from PyPi. Specified as in a requirements.txt,
+  # file.
+  requirements: []
+
+
+# Application environment settings and variables.
+environ:
+  prefix: true # Prefix environment variables with USR_
+  variables:
+  - name: SECRET_KEY
+    default: 30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460
+    comment: Not for production use!
+  - name: RDBMS_DSN
+    default: postgresql+psycopg2://usr:usr@rdbms:5432/usr
+
+
+# The application is currently not configured as an event listener. To
+# enable this feature, add the 'listener' role to the #/app/roles list.
+listener:
+
+  # Lists all events that the application subscribes to. This does not
+  # imply that it knows how to handle them (i.e., has a handler function
+  # configured), only that it wants to receive them.
+  events: []
+
+  # The list below configures the event handlers that are run on each
+  # incoming event message (individual handlers may choose to drop
+  # messages). Each item in the list is a dictionary, having at least
+  # a `qualname` member, specifying the Python qualified name (e.g.
+  # import path) to the event handler *class*. For more information on
+  # event handler classes, refer to the Sovereign Quantum documentation.
+  handlers:
+  - qualname: sq.event.NullEventHandler
+
+  # Specifies the channel from which this application will receive
+  # its event messages. Event messages are assumed to be routed
+  # according to the criteria specified above.
+  channel: usr.events.ingress
+
+
+# Security related settings.
+security:
+
+  # A generic application secret that may be used, for example, to generate
+  # signed cookies or other message signatures. This value MUST NOT be used in
+  # production, and exists for development and testing purposes only.
+  secret_key: 30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460
+
+  tls:
+
+    # A snakeoil X.509 certificate that is used to enable Transport Level Security (TLS)
+    # in non-production environments. Like `secret_key`, this configuration MUST NOT
+    # be used in production. Additional hostnames may be specified in the `hostnames`
+    # section.
+    hostnames:
+    - usr
+
+    crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIBtjCCAR+gAwIBAgICA+gwDQYJKoZIhvcNAQELBQAwDjEMMAoGA1UEAwwDdXNy
+      MB4XDTE4MDcxNzE4MjE1M1oXDTI4MDcxNDE4MjE1M1owDjEMMAoGA1UEAwwDdXNy
+      MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCdNWxGVkEoRH9B7IrL+1dYwJzW
+      bIrZWFXhLT08FzhmvWDOQE9uU0IdT0pNCL8do5Yyj6tqKEJGKlazhIrv52sFQfZN
+      WuXhUsb0bJYhHdLwrU38dRaNz1df2H+YJHvG67ERNvPBqiu5q+xUsyYGREgb1iWH
+      ygRk3S98mbzhJnn9CQIDAQABoyMwITAPBgNVHRMECDAGAQH/AgEAMA4GA1UdEQQH
+      MAWCA3VzcjANBgkqhkiG9w0BAQsFAAOBgQCM0xUL45z03XnDK8MKXDjU+kVgQrWK
+      zQ6NR89h+J6PqGFRKxogkGimgsLgLbbwZNRgGQUXupqxPzIftCfoA1AOS+QJupTH
+      kLRxKEaAJuB95bvwtwnvDGMNdZjzo6pMd/72EQuYKSeOB2NroSQgszQJXayoAeyB
+      WSQxEiN59ithCQ==
+      -----END CERTIFICATE-----
+
+    key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIICXAIBAAKBgQCdNWxGVkEoRH9B7IrL+1dYwJzWbIrZWFXhLT08FzhmvWDOQE9u
+      U0IdT0pNCL8do5Yyj6tqKEJGKlazhIrv52sFQfZNWuXhUsb0bJYhHdLwrU38dRaN
+      z1df2H+YJHvG67ERNvPBqiu5q+xUsyYGREgb1iWHygRk3S98mbzhJnn9CQIDAQAB
+      AoGAWbAZxoL9B0kUxPp7MOaCrYqtr5MbH+ZKkH2rurWQouSV7vU3m7x6MpiCzjIY
+      PoOOc+gNJjIzpS4QarhKP5XqMp+TD4O+mEsIKw39J5uNd3r6BVagYU/zKbd+hx5m
+      RVecC8FGp3EDNdZqxztILKIU/1eG6l5xv8vHh8SNpNOEVpECQQDRZsg1OA+EzY+H
+      H9Z7SNmRI1fhC3LO6Zb7FFgCuO9fk6vJgGYEu3YQo92vjQBOM4m2yNHuah3DNwYo
+      cI4+RRpFAkEAwDFQAmxiFfItRxIOIW0gpQ+MIxyrFFYjOetaOd3SF1S0BzPayEqz
+      7R0HxYHJDldxH6CedZpiuacKwqFKrQqF9QJAblhSMjErhFjqRFNTq7204JWWToHA
+      6yYOqJqM0kpv4ZaolNNzbxT130jqngKYYZ0o+cgTUCZdLqzFMvQ1EL1LXQJBAKwq
+      gJXrKWKnc0/7KJVhAKFccBj0EX1CPIQiBM1ZnF4yDqN1HEPYR53dJ50SSl2Cj1/Z
+      rpmDF3Vf4g/AFPk2OBECQD/cjLd70SLzytcKoRz+lT7WHmyhfyyDPHDMY34n0OYJ
+      ++L0aWDWpJl+A38nH7z1H/7GE/CtVMl1Fho7KUzg0h4=
+      -----END RSA PRIVATE KEY-----
+
+
+
+# A list of Quantum services that the application requires.
+#requires:
+#- url: git+https://github.com/wizardsofindustry/quantum-usr.git
+
+
+# Docker configuration.
+docker:
+
+  # The base image for the application container. This value
+  # may be changed to use a custom image, instead of the
+  # default Quantum base image.
+  base: wizardsofindustry/quantum:latest
+
+  # Specifies the Docker repository that is used for
+  # this application, used by development tooling and
+  # the CI/CD pipeline.
+  repository: null
+
+  # CI/CD configuration for containerization and image
+  # publication.
+  ci:
+    # The credentials that the CI/CD pipeline may use to
+    # login and publish to a Docker registry.
+    credentials_id: null
+
+
+# This section configures relational database systems, such as PostgreSQl
+# or MySQL.
+
+
+# This section contains SG related settings and should not be modified under
+# normal circumstances.
+sg:
+
+  # Specifies the SG project type. Allowed values are: service, system or infra.
+  type: service
+  dirname: .sg
+
+
+# Configuration file format version. Changing this will have dire
+# consequences.
+version: "1"
