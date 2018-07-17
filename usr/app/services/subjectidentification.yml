@@ -108,3 +108,6 @@ exceptions:
 - name: SubjectDoesNotExist
   base: sq.exceptions.ObjectDoesNotExist
   description: null
+- name: InvalidPrincipalType
+  base: sq.exceptions.UnprocessableEntity
+  description: null
