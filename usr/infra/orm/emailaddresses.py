@@ -17,7 +17,6 @@ class EmailAddress(Relation):
     gsid = sqlalchemy.Column(
         sq.ext.rdbms.types.UUID,
         name='gsid',
-        primary_key=True,
         nullable=False
     )
 
@@ -25,6 +24,7 @@ class EmailAddress(Relation):
     email = sqlalchemy.Column(
         sqlalchemy.String,
         name='email',
+        primary_key=True,
         nullable=False
     )
 
