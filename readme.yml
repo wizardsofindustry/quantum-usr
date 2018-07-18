@@ -1,0 +1,17 @@
+title: Universal Subject Resolver (USR)
+
+synopsis: >
+  The Universal Subject Resolver (USR) maintains associations between **Subjects**
+  and one or many **Principals**. A **Principal**, such as an email address or
+  username, uniquely resolves to a **Subject** through a unique **Global Subject
+  Identifier (GSID)**, simplifying the identification, authentication and maintenance
+  of users in a single system.
+
+features:
+- >
+  Resolve **Principals** to **Subjects** (represented by a *Global Subject Identifier* (GSID))
+  through an easy-to-use HTTP interface.
+- Supports Username, RFC822 (email address), X.509 certificate.
+
+
+seealso:

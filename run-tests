@@ -1,6 +1,6 @@
 #!/bin/sh
-SQ_TESTING_PHASE=unit ./bin/run-tests
-SQ_TESTING_PHASE=integration ./bin/run-tests
-#SQ_TESTING_PHASE=system ./bin/run-tests
-#SQ_TESTING_PHASE=lint ./bin/run-tests
+SQ_TESTING_PHASE=unit ./bin/run-tests $@ &&\
+SQ_TESTING_PHASE=integration ./bin/run-tests $@ &&\
+#SQ_TESTING_PHASE=system ./bin/run-tests &&\
+#SQ_TESTING_PHASE=lint ./bin/run-tests &&\
 SQ_TESTING_PHASE=coverage ./bin/run-tests

@@ -23,10 +23,13 @@ if os.getenv('USR_SECRETS'):
     del secrets
 
 
+os.environ['SQ_ENVIRON_PREFIX'] = 'USR'
 DEFAULT_SECRET_KEY = "30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460"
 SECRET_KEY = os.environ.setdefault('USR_SECRET_KEY', DEFAULT_SECRET_KEY)
 os.environ.setdefault('USR_SECRET_KEY', "30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460")
 os.environ.setdefault('USR_RDBMS_DSN', "postgresql+psycopg2://usr:usr@rdbms:5432/usr")
+os.environ.setdefault('USR_HTTP_ADDR', "0.0.0.0")
+os.environ.setdefault('USR_HTTP_PORT', "8443")
 
 
 class MainProcess(sq.runtime.MainProcess):

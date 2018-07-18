@@ -33,6 +33,8 @@ services:
     - USR_RUNTIME=migrations
     - USR_SECRET_KEY=30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460
     - USR_RDBMS_DSN=postgresql+psycopg2://usr:usr@rdbms:5432/usr
+    - USR_HTTP_ADDR=0.0.0.0
+    - USR_HTTP_PORT=8443
     depends_on:
     - rdbms
   usr:
@@ -41,6 +43,8 @@ services:
     - USR_RUNTIME=${USR_RUNTIME-service}
     - USR_SECRET_KEY=30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460
     - USR_RDBMS_DSN=postgresql+psycopg2://usr:usr@rdbms:5432/usr
+    - USR_HTTP_ADDR=0.0.0.0
+    - USR_HTTP_PORT=8443
     depends_on:
     - rdbms
     volumes:
