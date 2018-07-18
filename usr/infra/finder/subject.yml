@@ -59,7 +59,7 @@ bases:
 methods:
 - name: by
   parameters:
-  - name: principals 
+  - name: principals
   args: no
   kwargs: no
   doc:

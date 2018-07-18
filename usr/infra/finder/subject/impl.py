@@ -1,5 +1,8 @@
 from sqlalchemy.orm.exc import NoResultFound
 
+from ...orm import CertificateFingerprint
+from ...orm import CertificateKeyIdentifier
+from ...orm import CertificateNames
 from ...orm import EmailAddress
 from .base import BaseSubjectFinder
 
@@ -39,21 +42,40 @@ class SubjectFinder(BaseSubjectFinder):
             'gsid': dao.gsid.hex,
         })
 
-    def by_x509_fingerprint(self):
+    def by_x509_fingerprint(self, fingerprint):
         """Resolve a Subject by using the fingerprint of a X.509 certificate,
         issued by a trused Certification Authority (CA).
         """
-        raise NotImplementedError("Subclasses must override this method.")
+        dao = self.session.query(CertificateFingerprint)\
+            .filter(CertificateFingerprint.fingerprint==fingerprint)\
+            .one()
+        return self.dto({
+            'type': 'x509.fingerprint',
+            'gsid': dao.gsid.hex,
+        })
 
-    def by_x509_distinguished_names(self):
+    def by_x509_distinguished_names(self, names):
         """Resolve a Subject using the Distinguished Names (DNs) of the Issuer
         and Subject on a X.509 certificate, issued by a trusted Certification
         Authority (CA).
         """
-        raise NotImplementedError("Subclasses must override this method.")
+        dao = self.session.query(CertificateNames)\
+            .filter(CertificateNames.issuer==names[0])\
+            .filter(CertificateNames.subject==names[1])\
+            .one()
+        return self.dto({
+            'type': 'x509.distinguished_names',
+            'gsid': dao.gsid.hex,
+        })
 
-    def by_x509_keyid(self):
+    def by_x509_keyid(self, keyid):
         """Resolve a Subject using the SHA-256 hashed public key on a X.509
         certificate, issued by a trusted Certification Authority (CA).
         """
-        raise NotImplementedError("Subclasses must override this method.")
+        dao = self.session.query(CertificateKeyIdentifier)\
+            .filter(CertificateKeyIdentifier.keyid==keyid)\
+            .one()
+        return self.dto({
+            'type': 'x509.keyid',
+            'gsid': dao.gsid.hex,
+        })
