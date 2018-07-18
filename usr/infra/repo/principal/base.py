@@ -1,7 +1,9 @@
+import ioc
 from sq.persistence import Repository
 
 
 class BasePrincipalRepository(Repository):
+    session = ioc.class_property('DatabaseSessionFactory')
 
     def persist(self, dto):
         raise NotImplementedError("Subclasses must override this method.")
