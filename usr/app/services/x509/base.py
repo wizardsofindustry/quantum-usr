@@ -6,7 +6,7 @@ class BaseX509Service(Service):
 
     InvalidCertificate = type('InvalidCertificate', (UnprocessableEntity,), {})
 
-    def principals_from_pem(self, crt):
+    def principals_from_pem(self, pem):
         raise NotImplementedError("Subclasses must override this method.")
 
     def email_from_san(self, crt):
