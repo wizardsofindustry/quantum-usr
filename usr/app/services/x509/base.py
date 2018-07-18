@@ -9,7 +9,10 @@ class BaseX509Service(Service):
     def principals_from_pem(self, crt):
         raise NotImplementedError("Subclasses must override this method.")
 
-    def email_from_san(self, altnames):
+    def email_from_san(self, crt):
+        raise NotImplementedError("Subclasses must override this method.")
+
+    def email_from_subject(self, crt):
         raise NotImplementedError("Subclasses must override this method.")
 
     def fingerprint(self, crt):
