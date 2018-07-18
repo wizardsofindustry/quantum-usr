@@ -64,3 +64,23 @@ relations:
     description: >
       A hex-representation of a SHA-256 hash of the DER-encoded
       Subject name as included in the X.509 certificate.
+
+- relname: certificatekeyids
+  classname: CertificateKeyIdentifier
+  description: >
+    Associates a X.509 certificate public key SHA-256 hash
+    to a Global Subject Identifier (GSID).
+  columns:
+  - name: gsid
+    type: uuid
+    nullable: false
+    description: >
+      Specifies the Global Subject Identifier (GSID), uniquely
+      identifying a Subject within the boundaries of a Quantum
+      system.
+  - name: keyid
+    type: string
+    primary_key: true
+    description: >
+      A hex-representation of the SHA-256 hashed certificate
+      public key.

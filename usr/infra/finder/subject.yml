@@ -107,7 +107,7 @@ methods:
   kwargs: no
   doc:
     heading: >
-      Resolve a Subject using the Subject Key Identifier (SKI)
+      Resolve a Subject using the SHA-256 hashed public key
       on a X.509 certificate, issued by a trusted Certification
       Authority (CA).
     returns:
