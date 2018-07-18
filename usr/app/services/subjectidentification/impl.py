@@ -36,7 +36,7 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
         principals = self.x509.principals_from_pem(bytes.fromhex(crt))
         subjects = self.finder.by(principals)
         if len(subjects) > 1:
-            raise self.MultipleSubjectsReturned
+            raise self.MultipleSubjectsReturned(subjects)
         return subjects
 
     def _get_method(self, principal, action):

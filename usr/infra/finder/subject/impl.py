@@ -34,6 +34,7 @@ class SubjectFinder(BaseSubjectFinder):
             # Only append the result if the gsid is not already seen.
             if principal is None or principal.gsid in seen:
                 continue
+            seen.add(principal.gsid)
             results.append(principal)
 
         return results
