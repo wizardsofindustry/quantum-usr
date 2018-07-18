@@ -33,13 +33,19 @@ class X509Service(BaseX509Service):
     def email_from_subject(self, crt):
         attr = crt.subject.get_attributes_for_oid(NameOID.EMAIL_ADDRESS)
         return {'type': 'email', 'email':attr[0].value}\
-            if attr is not None else None
+            if attr else None
 
     def email_from_san(self, crt):
         """Extract email addresses from the Subject Alternative Names (SANs)."""
         try:
             ext = crt.extensions.get_extension_for_oid(
                 ExtensionOID.SUBJECT_ALTERNATIVE_NAME)
+            if not hasattr(ext, 'get_values_for_type'):
+                # This attribute is not present if there were SAN(s)
+                # but they did not contain an email address.
+                raise ExtensionNotFound('Unable to parse email from SAN',
+                    ExtensionOID.SUBJECT_ALTERNATIVE_NAME)
+
             return [{'type': 'email', 'email': x}
                 for x in set(ext.get_values_for_type(RFC822Name))]
         except ExtensionNotFound:
