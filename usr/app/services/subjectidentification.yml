@@ -100,7 +100,8 @@ methods:
 dependencies:
 - require: SubjectFinder
   attname: finder
-
+- require: X509Service
+  attname: x509
 
 # Specifies exception classes that the service will declare.
 #

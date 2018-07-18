@@ -62,25 +62,54 @@ bases:
 # parameters in the method signature.
 methods:
 - name: principals_from_pem
-  parameters: []
+  parameters:
+  - name: crt
+    type: list
+    doc: >
+      A byte-sequence containing an X.509 certificate in the
+      PEM-encoding.
   args: no
   kwargs: no
-  doc: null
+  doc:
+    heading: >
+      Extract Principals from a X.509 client certificate.
+    returns: >
+      list
 - name: email_from_san
-  parameters: []
+  parameters:
+  - name: altnames
+    type: list
+    doc: >
+      A list of :class:`cryptography.x509.SubjectAlternativeName`
+      instances.
   args: no
   kwargs: no
-  doc: null
+  doc:
+    heading: >
+      Extract email addresses from the Subject Alternative Names (SANs).
+    returns: >
+      list
 - name: fingerprint
-  parameters: []
+  parameters:
+  - name: crt
   args: no
   kwargs: no
-  doc: null
+  doc:
+    heading: >
+      Extract the fingerprint from a X.509 certificate.
+    returns: >
+      string
 - name: distinguished_names
-  parameters: []
+  parameters:
+  - name: crt
   args: no
   kwargs: no
-  doc: null
+  doc:
+    heading: >
+      Return a tuple containing the Issuer Distinguished Name (DN)
+      and the Subject DN.
+    returns: >
+      tuple
 
 
 # A list containing dependencies from the inversion-of-control
