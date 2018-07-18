@@ -1,5 +1,7 @@
 import hashlib
 
+from cryptography.hazmat.primitives.serialization import Encoding
+from cryptography.hazmat.primitives.serialization import PublicFormat
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.x509 import load_pem_x509_certificate
@@ -14,16 +16,12 @@ from .base import BaseX509Service
 class X509Service(BaseX509Service):
 
     def principals_from_pem(self, pem):
-        """Extract Principals from a X.509 client certificate."""
         crt = load_pem_x509_certificate(pem, default_backend())
         principals = self.email_from_san(crt)
-        """Extract email addresses from the Subject Alternative Names (SANs)."""
         principals.append(self.fingerprint(crt))
         principals.append(self.distinguished_names(crt))
+        principals.append(self.keyid(crt))
         email = self.email_from_subject(crt)
-        """Return a tuple containing the Issuer Distinguished Name (DN) and the
-        Subject DN.
-        """
         if email is not None:
             principals.append(email)
         return [self.dto(**p) for p in principals]
@@ -64,4 +62,18 @@ class X509Service(BaseX509Service):
                 hashlib.sha256(issuer).hexdigest(),
                 hashlib.sha256(subject).hexdigest(),
             )
+        }
+
+    def keyid(self, crt):
+        """Return the hex-encoded, SHA-256 hashed public key associated
+        to the X.509 certificate.
+        """
+        key = crt.public_key()
+        pem = key.public_bytes(
+            encoding=Encoding.PEM,
+            format=PublicFormat.SubjectPublicKeyInfo
+        )
+        return {
+            'type': 'x509.keyid',
+            'keyid': hashlib.sha256(pem).hexdigest()
         }
