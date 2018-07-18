@@ -17,5 +17,8 @@ class BasePrincipalRepository(Repository):
     def persist_x509_fingerprint(self, gsid, fingerprint):
         raise NotImplementedError("Subclasses must override this method.")
 
+    def persist_x509_keyid(self, gsid, keyid):
+        raise NotImplementedError("Subclasses must override this method.")
+
 
 # pylint: skip-file
