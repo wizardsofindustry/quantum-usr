@@ -7,6 +7,7 @@ from sq.exceptions import UnprocessableEntity
 class BaseSubjectIdentificationService(Service):
     finder = ioc.class_property('SubjectFinder')
     x509 = ioc.class_property('X509Service')
+    repo = ioc.class_property('PrincipalRepository')
 
     SubjectDoesNotExist = type('SubjectDoesNotExist', (ObjectDoesNotExist,), {})
     InvalidPrincipalType = type('InvalidPrincipalType', (UnprocessableEntity,), {})
