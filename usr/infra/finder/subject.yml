@@ -58,30 +58,42 @@ bases:
 # parameters in the method signature.
 methods:
 - name: by
-  parameters: []
+  parameters:
+  - name: principals 
   args: no
   kwargs: no
-  doc: null
+  doc:
+    heading: >
+      Resolve a list of Principal objects to a Global
+      Subject Identifier (GSID).
+    returns: >
+      A list of Subjects that were identified using the provided
+      Principals.
 - name: by_email
-  parameters: []
+  parameters:
+  - name: email
   args: no
   kwargs: no
-  doc: null
-- name: by_certificate_fingerprint
-  parameters: []
-  args: no
-  kwargs: no
-  doc: null
-- name: by_distinguished_name
-  parameters: []
-  args: no
-  kwargs: no
-  doc: null
-- name: by_keyid
-  parameters: []
-  args: no
-  kwargs: no
-  doc: null
+  doc:
+    heading: >
+      Resolve a Subject by email address.
+    returns:
+      Subject
+#- name: by_certificate_fingerprint
+#  parameters: []
+#  args: no
+#  kwargs: no
+#  doc: null
+#- name: by_distinguished_name
+#  parameters: []
+#  args: no
+#  kwargs: no
+#  doc: null
+#- name: by_keyid
+#  parameters: []
+#  args: no
+#  kwargs: no
+#  doc: null
 
 
 # A list containing dependencies from the inversion-of-control
