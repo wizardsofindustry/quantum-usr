@@ -2,3 +2,4 @@
 appication. See also :class:`~usr.app.wsgi.application.WSGIApplication`.
 """
 from .identification import IdentificationCtrl
+from .principal import PrincipalController
