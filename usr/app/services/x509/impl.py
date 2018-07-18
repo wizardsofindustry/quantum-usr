@@ -20,6 +20,9 @@ class X509Service(BaseX509Service):
         principals.append(self.distinguished_names(crt))
         return principals
 
+    def email_from_subject(self, crt):
+        raise NotImplementedError
+
     def email_from_san(self, crt):
         """Extract email addresses from the Subject Alternative Names (SANs)."""
         try:
