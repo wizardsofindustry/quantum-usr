@@ -73,6 +73,19 @@ methods:
       by `gsid`.
     returns:
       None
+- name: associate_x509
+  parameters:
+  - name: gsid
+  - name: crt
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Associates the Principals in a X.509 certificate, signed by a
+      trusted Certification Authority (CA), to the Subject identified
+      by string `gsid`.
+    returns:
+      None
 - name: identify
   parameters:
   - name: principal
