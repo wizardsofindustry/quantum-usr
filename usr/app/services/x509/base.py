@@ -6,16 +6,16 @@ class BaseX509Service(Service):
 
     InvalidCertificate = type('InvalidCertificate', (UnprocessableEntity,), {})
 
-    def principals_from_pem(self):
+    def principals_from_pem(self, crt):
         raise NotImplementedError("Subclasses must override this method.")
 
-    def email_from_san(self):
+    def email_from_san(self, altnames):
         raise NotImplementedError("Subclasses must override this method.")
 
-    def fingerprint(self):
+    def fingerprint(self, crt):
         raise NotImplementedError("Subclasses must override this method.")
 
-    def distinguished_names(self):
+    def distinguished_names(self, crt):
         raise NotImplementedError("Subclasses must override this method.")
 
 
