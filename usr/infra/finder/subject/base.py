@@ -11,5 +11,14 @@ class BaseSubjectFinder(Finder):
     def by_email(self, email):
         raise NotImplementedError("Subclasses must override this method.")
 
+    def by_x509_fingerprint(self, fingerprint):
+        raise NotImplementedError("Subclasses must override this method.")
+
+    def by_x509_distinguished_names(self):
+        raise NotImplementedError("Subclasses must override this method.")
+
+    def by_x509_keyid(self):
+        raise NotImplementedError("Subclasses must override this method.")
+
 
 # pylint: skip-file
