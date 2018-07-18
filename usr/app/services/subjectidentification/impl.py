@@ -22,7 +22,7 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
             None
         """
         for principal in self.x509.principals_from_pem(bytes.fromhex(crt)):
-            dto = self.dto(storage_class='principal', gsid=gsid, **principal)
+            dto = self.dto(storage_class=principal.type, gsid=gsid, **principal)
             self.repo.persist(dto)
 
     def identify(self, principal):
