@@ -61,6 +61,18 @@ bases:
 # but parameters with defaults will always come after defaultless
 # parameters in the method signature.
 methods:
+- name: associate
+  parameters:
+  - name: gsid
+  - name: principal
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Associates Principal `principal` to the Subject identified
+      by `gsid`.
+    returns:
+      None
 - name: identify
   parameters:
   - name: principal
