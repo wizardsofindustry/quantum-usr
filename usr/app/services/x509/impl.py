@@ -59,8 +59,8 @@ class X509Service(BaseX509Service):
         issuer = crt.issuer.public_bytes(default_backend())
         subject = crt.subject.public_bytes(default_backend())
         return {
-            'type': 'x509.distinguished_name',
-            'distinguished_name': (
+            'type': 'x509.distinguished_names',
+            'names': (
                 hashlib.sha256(issuer).hexdigest(),
                 hashlib.sha256(subject).hexdigest(),
             )

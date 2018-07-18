@@ -11,7 +11,7 @@ class PrincipalRepository(BasePrincipalRepository):
     def persist(self, dto):
         """Persists an association of a Principal to a Subject."""
         if dto.type not in self.allowed_types:
-            raise TypeError("Invalid storage class: {dto.storage_class}")
+            raise TypeError("Invalid storage class: {dto.type}")
         storage_class = re.sub('[\:\.]', '_', dto.pop('type'))
         func = getattr(self, f'persist_{storage_class}')
         result = func(**dto)
@@ -36,7 +36,7 @@ class PrincipalRepository(BasePrincipalRepository):
         self.session.add(CertificateFingerprint(gsid=gsid, fingerprint=fingerprint))
 
     allowed_types = [
-        'x509.distinguished_name',
+        'x509.distinguished_names',
         'x509.fingerprint',
         'email'
     ]
