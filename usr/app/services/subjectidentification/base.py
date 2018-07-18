@@ -2,6 +2,7 @@ import ioc
 from sq.exceptions import ObjectDoesNotExist
 from sq.service import Service
 from sq.exceptions import UnprocessableEntity
+from sq.exceptions import UnprocessableEntity
 
 
 class BaseSubjectIdentificationService(Service):
@@ -11,6 +12,8 @@ class BaseSubjectIdentificationService(Service):
 
     SubjectDoesNotExist = type('SubjectDoesNotExist', (ObjectDoesNotExist,), {})
     InvalidPrincipalType = type('InvalidPrincipalType', (UnprocessableEntity,), {})
+    MultipleSubjectsReturned = type('MultipleSubjectsReturned', (LookupError,), {})
+    UnknownPrincipalType = type('UnknownPrincipalType', (UnprocessableEntity,), {})
 
     def associate(self, gsid, principal):
         raise NotImplementedError("Subclasses must override this method.")
