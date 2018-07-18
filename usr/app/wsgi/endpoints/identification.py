@@ -1,6 +1,8 @@
 import ioc
 import sq.interfaces.http
 
+from ..schema import Principal
+
 
 class IdentificationEndpoint(sq.interfaces.http.Endpoint):
     """Deserializes, serializes and validates the structure of the input and output
@@ -40,6 +42,14 @@ class IdentificationEndpoint(sq.interfaces.http.Endpoint):
     """
     pattern = "/identify"
     ctrl = ioc.class_property("IdentificationCtrl")
+
+    #: The mapping below specifies the schema of structured data in the
+    #: request body per content type.
+    payload = {
+        "post": {
+            "application/json": Principal
+        }
+    }
 
 
 # pylint: skip-file
