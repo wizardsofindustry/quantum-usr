@@ -80,6 +80,14 @@ paths:
         qualname: usr.app.ctrl.IdentificationCtrl
     post:
       operationId: identify
+      requestBody:
+        description: >
+          The request payload may contain a Principal of type X.509,
+          Email Address, Username or Phonenumber.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Principal"
       responses:
         200:
           description: >
