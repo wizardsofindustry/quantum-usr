@@ -8,6 +8,7 @@ relations:
   columns:
   - name: gsid
     type: uuid
+    nullable: false
     description: >
       Specifies the Global Subject Identifier (GSID), uniquely
       identifying a Subject within the boundaries of a Quantum
@@ -18,3 +19,48 @@ relations:
     nullable: false
     description: >
       The email address that resolves to the `gsid`.
+
+- relname: certificatefingerprints
+  classname: CertificateFingerprint
+  description: >
+    Maps the fingerprint of a X.509 certificate, issued by a trusted Certification
+    Authority (CA), to a Global Subject Identifier (GSID).
+  columns:
+  - name: gsid
+    type: uuid
+    nullable: false
+    description: >
+      Specifies the Global Subject Identifier (GSID), uniquely
+      identifying a Subject within the boundaries of a Quantum
+      system.
+  - name: fingerprint
+    type: string
+    primary_key: true
+    description: >
+      A hex-representation of the certificate fingerprint.
+
+- relname: certificatenames
+  classname: CertificateNames
+  description: >
+    Associates a combination of Issuer Distinguished Name (DN)
+    and Subject DN to a Global Subject Identifier (GSID).
+  columns:
+  - name: gsid
+    type: uuid
+    nullable: false
+    description: >
+      Specifies the Global Subject Identifier (GSID), uniquely
+      identifying a Subject within the boundaries of a Quantum
+      system.
+  - name: issuer
+    type: string
+    primary_key: true
+    description: >
+      A hex-representation of a SHA-256 hash of the DER-encoded
+      Issuer name as included in the X.509 certificate.
+  - name: subject
+    type: string
+    primary_key: true
+    description: >
+      A hex-representation of a SHA-256 hash of the DER-encoded
+      Subject name as included in the X.509 certificate.
