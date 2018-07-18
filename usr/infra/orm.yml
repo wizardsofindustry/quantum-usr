@@ -7,7 +7,6 @@ relations:
     Subject Identifier (GSID).
   columns:
   - name: gsid
-    primary_key: true
     type: uuid
     description: >
       Specifies the Global Subject Identifier (GSID), uniquely
@@ -15,7 +14,7 @@ relations:
       system.
   - name: email
     type: string
-    unique: true
+    primary_key: true
     nullable: false
     description: >
       The email address that resolves to the `gsid`.
