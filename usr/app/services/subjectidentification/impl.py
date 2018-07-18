@@ -21,7 +21,9 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
         """Identify a Subject using the Issuer Distinguished Name (DN) and
         Subject DN, email address and certificate fingerprint.
         """
-        raise NotImplementedError("Subclasses must override this method.")
+        principals = self.x509.principals_from_pem(bytes.fromhex(crt))
+        return self.finder.by(principals)
+
 
     # TODO: Docstring updating messes up the code if this is put at the
     # top of the class.
