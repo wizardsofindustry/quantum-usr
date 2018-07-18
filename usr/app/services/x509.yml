@@ -117,7 +117,17 @@ methods:
       and the Subject DN.
     returns: >
       Principal
-
+- name: keyid
+  parameters:
+  - name: crt
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Return the hex-encoded, SHA-256 hashed public key associated
+      to the X.509 certificate
+    returns:
+      Principal
 
 # A list containing dependencies from the inversion-of-control
 # container that should be added to the base class as class
