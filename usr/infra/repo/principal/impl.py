@@ -41,6 +41,7 @@ class PrincipalRepository(BasePrincipalRepository):
         self.session.add(CertificateFingerprint(gsid=gsid, fingerprint=fingerprint))
 
     def persist_x509_keyid(self, gsid, keyid):
+        """Persists an association of a SHA-256 public key to a Subject."""
         self.session.add(CertificateKeyIdentifier(gsid=gsid, keyid=keyid))
 
     allowed_types = [
