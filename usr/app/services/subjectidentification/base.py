@@ -11,6 +11,12 @@ class BaseSubjectIdentificationService(Service):
     SubjectDoesNotExist = type('SubjectDoesNotExist', (ObjectDoesNotExist,), {})
     InvalidPrincipalType = type('InvalidPrincipalType', (UnprocessableEntity,), {})
 
+    def associate(self, gsid, principal):
+        raise NotImplementedError("Subclasses must override this method.")
+
+    def associate_x509(self, gsid, crt):
+        raise NotImplementedError("Subclasses must override this method.")
+
     def identify(self, principal):
         raise NotImplementedError("Subclasses must override this method.")
 
