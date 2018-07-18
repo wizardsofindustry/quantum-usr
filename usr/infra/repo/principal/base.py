@@ -9,7 +9,7 @@ class BasePrincipalRepository(Repository):
     def persist_email(self, gsid, email):
         raise NotImplementedError("Subclasses must override this method.")
 
-    def persist_x509_distinguished_name(self, gsid, distinguished_name):
+    def persist_x509_distinguished_names(self, gsid, names):
         raise NotImplementedError("Subclasses must override this method.")
 
     def persist_x509_fingerprint(self, gsid, fingerprint):
