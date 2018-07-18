@@ -77,18 +77,25 @@ methods:
       list
 - name: email_from_san
   parameters:
-  - name: altnames
-    type: list
-    doc: >
-      A list of :class:`cryptography.x509.SubjectAlternativeName`
-      instances.
+  - name: crt
+    type: cryptography.x509.Certificate
   args: no
   kwargs: no
   doc:
     heading: >
       Extract email addresses from the Subject Alternative Names (SANs).
     returns: >
-      list
+      list of Principal objects
+- name: email_from_subject
+  parameters:
+  - name: crt
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Extract the email address from the Subject Distinguished Name (DN)
+    returns: >
+      Principal
 - name: fingerprint
   parameters:
   - name: crt
@@ -98,7 +105,7 @@ methods:
     heading: >
       Extract the fingerprint from a X.509 certificate.
     returns: >
-      string
+      Principal
 - name: distinguished_names
   parameters:
   - name: crt
@@ -109,7 +116,7 @@ methods:
       Return a tuple containing the Issuer Distinguished Name (DN)
       and the Subject DN.
     returns: >
-      tuple
+      Principal
 
 
 # A list containing dependencies from the inversion-of-control
