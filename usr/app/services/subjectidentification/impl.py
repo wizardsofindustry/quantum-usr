@@ -22,7 +22,10 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
         Subject DN, email address and certificate fingerprint.
         """
         principals = self.x509.principals_from_pem(bytes.fromhex(crt))
-        return self.finder.by(principals)
+        subjects = self.finder.by(principals)
+        if len(subjects) > 1:
+            raise self.MultipleSubjectsReturned
+        return subjects
 
 
     # TODO: Docstring updating messes up the code if this is put at the

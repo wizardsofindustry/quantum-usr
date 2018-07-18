@@ -1,3 +1,4 @@
+from ...orm import EmailAddress
 from .base import BaseSubjectFinder
 
 
@@ -7,11 +8,26 @@ class SubjectFinder(BaseSubjectFinder):
         """Resolve a list of Principal objects to a Global Subject Identifier
         (GSID).
         """
-        raise NotImplementedError("Subclasses must override this method.")
+        results = []
+        seen = set()
+        for p in (principals or []):
+            attname = f'by_{p.type}'
+            if not hasattr(self, attname):
+                continue
+            principal = getattr(self, attname)(p)
 
-    def by_email(self, email):
+            # Only append the result if the gsid is not already seen.
+            if principal is None or principal.gsid in seen:
+                continue
+            results.append(principal)
+
+        return results
+
+    def by_email(self, dto):
         """Resolve a Subject by email address."""
-        raise NotImplementedError("Subclasses must override this method.")
+        return self.session.query(EmailAddress)\
+            .filter(EmailAddress.email==dto.email)\
+            .first()
 
     #def by_certificate_fingerprint(self):
     #    raise NotImplementedError("Subclasses must override this method.")

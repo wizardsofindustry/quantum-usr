@@ -26,7 +26,7 @@ class X509Service(BaseX509Service):
         """
         if email is not None:
             principals.append(email)
-        return principals
+        return [self.dto(**p) for p in principals]
 
     def email_from_subject(self, crt):
         attr = crt.subject.get_attributes_for_oid(NameOID.EMAIL_ADDRESS)

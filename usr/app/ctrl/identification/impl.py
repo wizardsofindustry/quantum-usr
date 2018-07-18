@@ -6,4 +6,4 @@ class IdentificationCtrl(BaseIdentificationCtrl):
 
     async def post(self, request, *args, **kwargs):
         return self.render_to_response(
-            self.subject.identify(request.payload))
+            ctx=self.subject.identify(request.payload))
