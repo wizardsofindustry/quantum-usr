@@ -1,3 +1,5 @@
+from sqlalchemy.orm.exc import NoResultFound
+
 from ...orm import EmailAddress
 from .base import BaseSubjectFinder
 
@@ -11,10 +13,14 @@ class SubjectFinder(BaseSubjectFinder):
         results = []
         seen = set()
         for p in (principals or []):
-            attname = f'by_{p.type}'
+            principal_type = re.sub('[\.\:]', '_', p.pop('type'))
+            attname = f'by_{principal_type}'
             if not hasattr(self, attname):
                 continue
-            principal = getattr(self, attname)(p)
+            try:
+                principal = getattr(self, attname)(p)
+            except NoResultFound:
+                continue
 
             # Only append the result if the gsid is not already seen.
             if principal is None or principal.gsid in seen:
@@ -23,17 +29,21 @@ class SubjectFinder(BaseSubjectFinder):
 
         return results
 
-    def by_email(self, dto):
+    def by_email(self, email):
         """Resolve a Subject by email address."""
-        return self.session.query(EmailAddress)\
-            .filter(EmailAddress.email==dto.email)\
-            .first()
+        dao = self.session.query(EmailAddress)\
+            .filter(EmailAddress.email==email)\
+            .one()
+        return self.dto({
+            'type': 'email',
+            'gsid': dao.gsid.hex,
+        })
 
-    #def by_certificate_fingerprint(self):
-    #    raise NotImplementedError("Subclasses must override this method.")
+    def by_x509_fingerprint(self):
+        raise NotImplementedError("Subclasses must override this method.")
 
-    #def by_distinguished_name(self):
-    #    raise NotImplementedError("Subclasses must override this method.")
+    def by_x509_distinguished_names(self):
+        raise NotImplementedError("Subclasses must override this method.")
 
-    #def by_keyid(self):
-    #    raise NotImplementedError("Subclasses must override this method.")
+    def by_x509_keyid(self):
+        raise NotImplementedError("Subclasses must override this method.")
