@@ -4,22 +4,16 @@ from .base import BaseSubjectIdentificationService
 class SubjectIdentificationService(BaseSubjectIdentificationService):
 
     def associate(self, gsid, principal):
-        """Associate a principal to a Subject, identified by string `gsid`"""
+        """Associates Principal `principal` to the Subject identified by
+        `gsid`.
+        """
         func = self._get_method(principal, 'associate')
         return func(gsid, **principal)
 
     def associate_x509(self, gsid, crt):
-        """Associate the Principals contained in a X.509 certificate
-        signed by a trusted Certification Authority (CA) to a
-        Subject.
-
-        Args:
-            gsid (string): a Global Subject Identifier (GSID)
-            crt (string): a hex-encoded X.509 certificate in the
-                PEM-format.
-
-        Returns:
-            None
+        """Associates the Principals in a X.509 certificate, signed by a trusted
+        Certification Authority (CA), to the Subject identified by string
+        `gsid`.
         """
         for principal in self.x509.principals_from_pem(bytes.fromhex(crt)):
             dto = self.dto(storage_class=principal.type, gsid=gsid, **principal)
