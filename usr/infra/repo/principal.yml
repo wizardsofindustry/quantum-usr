@@ -79,10 +79,10 @@ methods:
       Subject.
     returns: >
       None
-- name: persist_x509_distinguished_name
+- name: persist_x509_distinguished_names
   parameters:
   - name: gsid
-  - name: distinguished_name
+  - name: names
   args: no
   kwargs: no
   doc:
