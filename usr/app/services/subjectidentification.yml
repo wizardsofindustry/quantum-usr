@@ -127,6 +127,8 @@ dependencies:
   attname: finder
 - require: X509Service
   attname: x509
+- require: PrincipalRepository
+  attname: repo
 
 # Specifies exception classes that the service will declare.
 #
