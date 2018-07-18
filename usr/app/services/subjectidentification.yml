@@ -62,15 +62,26 @@ bases:
 # parameters in the method signature.
 methods:
 - name: identify
-  parameters: []
+  parameters:
+  - name: principal
   args: no
   kwargs: no
-  doc: null
+  doc:
+    heading: >
+      Identify a Subject using the given Principal object.
+    returns: >
+      Subject
 - name: identify_x509
-  parameters: []
+  parameters:
+  - name: crt
   args: no
   kwargs: no
-  doc: null
+  doc:
+    heading: >
+      Identify a Subject using the Issuer Distinguished Name (DN) and
+      Subject DN, email address and certificate fingerprint.
+    returns: >
+      Subject
 
 
 # A list containing dependencies from the inversion-of-control

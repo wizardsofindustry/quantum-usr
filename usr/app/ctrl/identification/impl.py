@@ -5,4 +5,5 @@ from .base import BaseIdentificationCtrl
 class IdentificationCtrl(BaseIdentificationCtrl):
 
     async def post(self, request, *args, **kwargs):
-        raise NotImplementedError("Subclasses must override this method.")
+        return self.render_to_response(
+            self.subject.identify(request.payload))
