@@ -21,5 +21,8 @@ class BaseX509Service(Service):
     def distinguished_names(self, crt):
         raise NotImplementedError("Subclasses must override this method.")
 
+    def keyid(self, crt):
+        raise NotImplementedError("Subclasses must override this method.")
+
 
 # pylint: skip-file
