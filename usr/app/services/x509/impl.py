@@ -5,6 +5,7 @@ from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.x509 import load_pem_x509_certificate
 from cryptography.x509 import RFC822Name
 from cryptography.x509 import ExtensionOID
+from cryptography.x509 import NameOID
 from cryptography.x509.extensions import ExtensionNotFound
 
 from .base import BaseX509Service
@@ -16,18 +17,17 @@ class X509Service(BaseX509Service):
         """Extract Principals from a X.509 client certificate."""
         crt = load_pem_x509_certificate(pem, default_backend())
         principals = self.email_from_san(crt)
-        """Extract email addresses from the Subject Alternative Names (SANs)."""
         principals.append(self.fingerprint(crt))
-        """Extract the fingerprint from a X.509 certificate."""
         principals.append(self.distinguished_names(crt))
-        """Return a tuple containing the Issuer Distinguished Name (DN) and the
-        Subject DN.
-        """
+        email = self.email_from_subject(crt)
+        if email is not None:
+            principals.append(email)
         return principals
 
     def email_from_subject(self, crt):
-        """Extract the email address from the Subject Distinguished Name (DN)"""
-        raise NotImplementedError
+        attr = crt.subject.get_attributes_for_oid(NameOID.EMAIL_ADDRESS)
+        return {'type': 'email', 'email':attr[0].value}\
+            if attr is not None else None
 
     def email_from_san(self, crt):
         """Extract email addresses from the Subject Alternative Names (SANs)."""
@@ -50,6 +50,8 @@ class X509Service(BaseX509Service):
         """Return a tuple containing the Issuer Distinguished Name (DN) and the
         Subject DN.
         """
+        # TODO: This should actually be implemented in a way so that it is
+        # case-insensitive.
         issuer = crt.issuer.public_bytes(default_backend())
         subject = crt.subject.public_bytes(default_backend())
         return {
