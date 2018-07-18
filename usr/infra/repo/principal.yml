@@ -101,6 +101,19 @@ methods:
     heading: >
       Persists an association of a X.509 certificate fingerprint
       to a Subject.
+    returns:
+      None
+- name: persist_x509_keyid
+  parameters:
+  - name: gsid
+  - name: keyid
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Persists an association of a SHA-256 public key to a Subject.
+    returns:
+      None
 
 
 # A list containing dependencies from the inversion-of-control

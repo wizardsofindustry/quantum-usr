@@ -27,7 +27,7 @@ class SubjectFinder(BaseSubjectFinder):
             if not hasattr(self, attname):
                 continue
             try:
-                principal = getattr(self, attname)(dto)
+                principal = getattr(self, attname)(**dto)
             except NoResultFound:
                 continue
 
