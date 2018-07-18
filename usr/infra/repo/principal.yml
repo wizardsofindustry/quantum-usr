@@ -1,0 +1,135 @@
+#######################################################################
+#
+# REPOSITORY DEFINITION FOR PRINCIPALREPOSITORY
+#
+# The definition provided in this file is used by SG to compile a
+# base class for the PrincipalRepository repository. A the Repository
+# classes abstract the persisting of domain objects from the concrete
+# infrastructure implementation. For a detailed explanation of
+# configuration values, refer to the comments below.
+#
+# The repository specified in this file will be compiled in the
+# following Python module:
+#
+#   usr.infra.repo.principal
+#
+# To create the implementation for this repository, edit its
+# module at:
+#
+#   ./usr/infra/repo/principal/impl.py
+#
+#######################################################################
+
+# Specifies the name of the repository class. This value is also used
+# to generate a module name, amongst other uses. Therefor, for correct
+# operation of the SG compiler, this SHOULD NOT be changed.
+name: PrincipalRepository
+
+
+# Defines the repository implementation(s) that are used by the
+# PrincipalRepository base class. It may also be used to inherit
+# from mixin classes. The elements are qualified names to Python
+# symbols e.g `sq.persistence.Repository`.
+bases:
+- sq.persistence.Repository
+
+
+# This list specifies the methods that the repository class publicly
+# exposes. See the example below.
+#
+# methods:
+# - name: my_method_name
+#   parameters:
+#   - name: foo
+#   - name: bar
+#     default: None
+#   args: true
+#   kwargs: true
+#   doc:
+#     heading: >
+#       This is the opening line of the docstring for the
+#       my_method_name repository method. It is rendered before
+#       the args block.
+#     returns: >
+#       The return value. See the Napoleon documentation.
+#
+# Note that parameters are compiled in the order they were defined,
+# but parameters with defaults will always come after defaultless
+# parameters in the method signature.
+methods:
+- name: persist
+  parameters:
+  - name: dto
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+        Persists an association of a Principal to a Subject.
+    returns: >
+        None
+- name: persist_email
+  parameters:
+  - name: gsid
+  - name: email
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Persists an association of an RFC822 email address to a
+      Subject.
+    returns: >
+      None
+- name: persist_x509_distinguished_name
+  parameters:
+  - name: gsid
+  - name: distinguished_name
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Persists an association of a Issuer DN/Subject DN combination
+      to a Subject.
+    returns: >
+      None
+- name: persist_x509_fingerprint
+  parameters:
+  - name: gsid
+  - name: fingerprint
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Persists an association of a X.509 certificate fingerprint
+      to a Subject.
+
+
+# A list containing dependencies from the inversion-of-control
+# container that should be added to the base class as class
+# properties. The elements in this list are mappings and must
+# have the following structure:
+#
+#   require: the name of the dependency
+#   desc: a description of this dependency and how it is
+#     used by the repository. This member is optional.
+#   attname: the name of the attribute on the repository class.
+#
+# Make sure that all dependencies listed here are injected either
+# programmatically or using the configuration files in the
+# ./etc/ioc.conf.d directory.
+dependencies: []
+
+
+# Specifies exception classes that the repository will declare.
+#
+# Example:
+#
+# exceptions:
+# - name: MyCustomException
+#   base: sq.exceptions.ObjectDoesNotExist
+#   doc: >
+#     This exception is raised when an object that the repository is
+#     trying to lookup does not exist.
+#
+# If the `base` attribute is not defined, then the exception inherits
+# from Exception.
+exceptions: []
