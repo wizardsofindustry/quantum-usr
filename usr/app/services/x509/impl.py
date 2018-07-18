@@ -16,11 +16,17 @@ class X509Service(BaseX509Service):
         """Extract Principals from a X.509 client certificate."""
         crt = load_pem_x509_certificate(pem, default_backend())
         principals = self.email_from_san(crt)
+        """Extract email addresses from the Subject Alternative Names (SANs)."""
         principals.append(self.fingerprint(crt))
+        """Extract the fingerprint from a X.509 certificate."""
         principals.append(self.distinguished_names(crt))
+        """Return a tuple containing the Issuer Distinguished Name (DN) and the
+        Subject DN.
+        """
         return principals
 
     def email_from_subject(self, crt):
+        """Extract the email address from the Subject Distinguished Name (DN)"""
         raise NotImplementedError
 
     def email_from_san(self, crt):
