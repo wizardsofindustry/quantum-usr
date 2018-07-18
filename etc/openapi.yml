@@ -80,6 +80,12 @@ paths:
         qualname: usr.app.ctrl.IdentificationCtrl
     post:
       operationId: identify
+      summary: >
+        Identify a Subject through one or many Principals
+      description: >
+        Lookup each Principal enclosed in the request payload and return
+        the Global Subject Identifier (GSID). If multiple GSIDs are
+        discovered, return an error status.
       requestBody:
         description: >
           The request payload may contain a Principal of type X.509,
@@ -99,6 +105,40 @@ paths:
         404:
           description: >
             The Principal did not identify a Subject.
+        503:
+          $ref: "#/components/responses/ServiceNotAvailable"
+        default:
+          $ref: "#/components/responses/UncaughException"
+
+  /principals:
+    summary: >
+      Provides a mechanism to associate Principals to a Subject.
+    x-endpoint:
+      classname: PrincipalEndpoint
+      controller:
+        qualname: PrincipalController
+    post:
+      operationId: associate_principals
+      summary: >
+        Associate Principals to a Subject
+      description: >
+        Associates the Principals provided in the request payload to the
+        Subject identified by the enclosed Global Subject Identifier (GSID).
+      requestBody:
+        description: >
+          A set of Principals to associate to the Subject identified by
+          the request payload.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubjectPrincipalSet"
+      responses:
+        200:
+          description: Principal(s) are associated to the Subject.
+        409:
+          description: >
+            One or more Principals identified a Subject other than
+            the Subject provided through `gsid`.
         503:
           $ref: "#/components/responses/ServiceNotAvailable"
         default:
@@ -135,6 +175,29 @@ components:
             within a single Quantum system.
           type: string
           format: uuid
+
+    SubjectPrincipalSet:
+      description: >
+        A set of Principals associated to a specific Subject.
+      type: object
+      nullable: false
+      required:
+      - gsid
+      - principals
+      properties:
+        gsid:
+          description: >
+            The Global Subject Identifier (GSID), uniquely identifying a Subject
+            within a single Quantum system.
+          type: string
+          format: uuid
+        principals:
+          description: >
+            One or many Principals to associate to the Subject identified by
+            `gsid`.
+          type: array
+          items:
+            $ref: "#/components/schemas/Principal"
 
     X509Principal:
       description: >
