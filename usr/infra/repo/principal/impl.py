@@ -1,3 +1,4 @@
+"""Declares :class:`PrincipalRepository`."""
 import re
 
 from ...orm import CertificateFingerprint
@@ -7,14 +8,17 @@ from .base import BasePrincipalRepository
 
 
 class PrincipalRepository(BasePrincipalRepository):
+    """Knows how to persist domain data to the persistent storage
+    backend.
+    """
 
     def persist(self, dto):
         """Persists an association of a Principal to a Subject."""
         if dto.type not in self.allowed_types:
             raise TypeError("Invalid storage class: {dto.type}")
-        storage_class = re.sub('[\:\.]', '_', dto.pop('type'))
+        storage_class = re.sub('[\\:\\.]', '_', dto.pop('type'))
         func = getattr(self, f'persist_{storage_class}')
-        result = func(**dto)
+        func(**dto)
         self.session.flush()
 
     def persist_email(self, gsid, email):

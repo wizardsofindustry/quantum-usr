@@ -1,7 +1,12 @@
+"""Declares service :class:`SubjectIdentificationService`."""
 from .base import BaseSubjectIdentificationService
 
 
 class SubjectIdentificationService(BaseSubjectIdentificationService):
+    """Provides an interface to resolve **Principal** objects to a
+    Global Subject Identifier (GSID), and to create associations
+    between them.
+    """
 
     def associate(self, gsid, principal):
         """Associates Principal `principal` to the Subject identified by

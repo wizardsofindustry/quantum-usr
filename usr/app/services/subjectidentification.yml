@@ -150,3 +150,7 @@ exceptions:
 - name: InvalidPrincipalType
   base: sq.exceptions.UnprocessableEntity
   description: null
+- name: MultipleSubjectsReturned
+  base: LookupError
+- name: UnknownPrincipalType
+  base: sq.exceptions.UnprocessableEntity

@@ -3,6 +3,9 @@ from .base import BaseIdentificationCtrl
 
 
 class IdentificationCtrl(BaseIdentificationCtrl):
+    """Deserializes a **Principal** from the request payload and resolves
+    it to a Global Subject Identifier (GSID).
+    """
 
     async def post(self, request, *args, **kwargs):
         subject = {'gsid': None}

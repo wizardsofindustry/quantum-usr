@@ -91,7 +91,8 @@ methods:
     returns:
       Subject
 - name: by_x509_distinguished_names
-  parameters: []
+  parameters:
+  - name: names
   args: no
   kwargs: no
   doc:
@@ -102,7 +103,8 @@ methods:
     returns:
       Subject
 - name: by_x509_keyid
-  parameters: []
+  parameters:
+  - name: keyid
   args: no
   kwargs: no
   doc:

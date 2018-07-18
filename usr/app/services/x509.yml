@@ -63,7 +63,7 @@ bases:
 methods:
 - name: principals_from_pem
   parameters:
-  - name: crt
+  - name: pem
     type: list
     doc: >
       A byte-sequence containing an X.509 certificate in the

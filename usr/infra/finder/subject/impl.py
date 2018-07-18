@@ -1,3 +1,6 @@
+"""Declares :class:`SubjectFinder`."""
+import re
+
 from sqlalchemy.orm.exc import NoResultFound
 
 from ...orm import CertificateFingerprint
@@ -8,6 +11,9 @@ from .base import BaseSubjectFinder
 
 
 class SubjectFinder(BaseSubjectFinder):
+    """Provides an interface to resolve Principals to Global Subject
+    Identifiers (GSIDs).
+    """
 
     def by(self, principals=None):
         """Resolve a list of Principal objects to a Global Subject Identifier
@@ -15,13 +21,13 @@ class SubjectFinder(BaseSubjectFinder):
         """
         results = []
         seen = set()
-        for p in (principals or []):
-            principal_type = re.sub('[\.\:]', '_', p.pop('type'))
+        for dto in (principals or []):
+            principal_type = re.sub('[\\.\\:]', '_', dto.pop('type'))
             attname = f'by_{principal_type}'
             if not hasattr(self, attname):
                 continue
             try:
-                principal = getattr(self, attname)(p)
+                principal = getattr(self, attname)(dto)
             except NoResultFound:
                 continue
 
@@ -35,7 +41,7 @@ class SubjectFinder(BaseSubjectFinder):
     def by_email(self, email):
         """Resolve a Subject by email address."""
         dao = self.session.query(EmailAddress)\
-            .filter(EmailAddress.email==email)\
+            .filter(EmailAddress.email == email)\
             .one()
         return self.dto({
             'type': 'email',
@@ -47,7 +53,7 @@ class SubjectFinder(BaseSubjectFinder):
         issued by a trused Certification Authority (CA).
         """
         dao = self.session.query(CertificateFingerprint)\
-            .filter(CertificateFingerprint.fingerprint==fingerprint)\
+            .filter(CertificateFingerprint.fingerprint == fingerprint)\
             .one()
         return self.dto({
             'type': 'x509.fingerprint',
@@ -60,8 +66,8 @@ class SubjectFinder(BaseSubjectFinder):
         Authority (CA).
         """
         dao = self.session.query(CertificateNames)\
-            .filter(CertificateNames.issuer==names[0])\
-            .filter(CertificateNames.subject==names[1])\
+            .filter(CertificateNames.issuer == names[0])\
+            .filter(CertificateNames.subject == names[1])\
             .one()
         return self.dto({
             'type': 'x509.distinguished_names',
@@ -73,7 +79,7 @@ class SubjectFinder(BaseSubjectFinder):
         certificate, issued by a trusted Certification Authority (CA).
         """
         dao = self.session.query(CertificateKeyIdentifier)\
-            .filter(CertificateKeyIdentifier.keyid==keyid)\
+            .filter(CertificateKeyIdentifier.keyid == keyid)\
             .one()
         return self.dto({
             'type': 'x509.keyid',

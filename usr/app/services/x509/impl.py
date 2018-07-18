@@ -1,3 +1,4 @@
+"""Declares service :class:`X509Service`."""
 import hashlib
 
 from cryptography.hazmat.primitives.serialization import Encoding
@@ -14,6 +15,9 @@ from .base import BaseX509Service
 
 
 class X509Service(BaseX509Service):
+    """Provides an interface to convert X.509 certificates to
+    **Principal** objects.
+    """
 
     def principals_from_pem(self, pem):
         crt = load_pem_x509_certificate(pem, default_backend())
