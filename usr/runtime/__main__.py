@@ -6,7 +6,21 @@ import logging
 import os
 import sys
 
+import yaml
+
 import sq.runtime
+
+
+# This is a hook to load secrets or other environment variables
+# from YAML-encoded file, for example when using Docker Swarm
+# secrets.
+if os.getenv('USR_SECRETS'):
+    with open(os.getenv('USR_SECRETS')) as f:
+        secrets = yaml.safe_load(f.read()) #pylint: disable=invalid-name
+    for key, value in secrets.items():
+        os.environ.setdefault(key, value)
+
+    del secrets
 
 
 DEFAULT_SECRET_KEY = "30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460"

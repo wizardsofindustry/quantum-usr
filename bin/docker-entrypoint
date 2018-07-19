@@ -1,0 +1,15 @@
+#!/bin/sh
+export USR_RUNTIME=${USR_RUNTIME-service}
+export USR_CONFIG_FILE=${USR_CONFIG_FILE-/etc/usr/usr.conf}
+
+case $USR_RUNTIME in
+  migrations)
+    alembic upgrade head
+  ;;
+  noop)
+    break
+  ;;
+  service)
+    python3 -m usr.runtime -c $USR_CONFIG_FILE
+  ;;
+esac

@@ -4,6 +4,17 @@ project:
   version: 1.0.0
 
 
+# This section specifies additional properties of the deployment
+# environment for the usr service.
+deployment:
+
+  # The deployment realm is either 'perimeter' (public-facing
+  # services), 'citadel' (core internal service), business
+  # (services implementing the business domain) or 'auxilary'
+  # (supporting services).
+  realm: citadel
+
+
 # This section describes the characteristics of the SG generated
 # application.
 app:
@@ -132,14 +143,14 @@ docker:
   # Specifies the Docker repository that is used for
   # this application, used by development tooling and
   # the CI/CD pipeline.
-  repository: null
+  repository: wizardsofindustry/quantum-usr
 
   # CI/CD configuration for containerization and image
   # publication.
   ci:
     # The credentials that the CI/CD pipeline may use to
     # login and publish to a Docker registry.
-    credentials_id: null
+    credentials_id: wizards-docker-repo
 
 
 # This section configures relational database systems, such as PostgreSQl
