@@ -11,6 +11,8 @@ import yaml
 import sq.runtime
 
 
+DEPLOYMENT_ENV = os.getenv('QUANTUM_DEPLOYMENT_ENV') or 'production'
+
 # This is a hook to load secrets or other environment variables
 # from YAML-encoded file, for example when using Docker Swarm
 # secrets.
@@ -18,14 +20,15 @@ if os.getenv('USR_SECRETS'):
     with open(os.getenv('USR_SECRETS')) as f:
         secrets = yaml.safe_load(f.read()) #pylint: disable=invalid-name
     for key, value in secrets.items():
-        os.environ.setdefault(key, value)
+        if not key.startswith('USR'):
+            continue
+        os.environ[key] = str(value)
 
     del secrets
 
 
 os.environ['SQ_ENVIRON_PREFIX'] = 'USR'
 DEFAULT_SECRET_KEY = "30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460"
-SECRET_KEY = os.environ.setdefault('USR_SECRET_KEY', DEFAULT_SECRET_KEY)
 os.environ.setdefault('USR_SECRET_KEY', "30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460")
 os.environ.setdefault('USR_RDBMS_DSN', "postgresql+psycopg2://usr:usr@rdbms:5432/usr")
 os.environ.setdefault('USR_HTTP_ADDR', "0.0.0.0")
@@ -54,8 +57,11 @@ if __name__ == '__main__':
     args = parser.parse_args() #pylint: disable=invalid-name
     p = MainProcess(args, logger=logger) #pylint: disable=invalid-name
 
-    if DEFAULT_SECRET_KEY == SECRET_KEY:
-        logger.critical("The application is started using the default secret key.")
+    if DEFAULT_SECRET_KEY == os.getenv('USR_SECRET_KEY'):
+        logger.critical("The application is started using the default secret key")
+        if DEPLOYMENT_ENV == 'production':
+            logger.critical("DEFAULT_SECRET_KEY may not be used in production")
+            sys.exit(128)
 
 
     try:

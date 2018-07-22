@@ -43,5 +43,6 @@ class X509SubjectIdentificationTestCase(sq.test.SystemTestCase):
         }
         request = self.request_factory(method='POST', json=dto)
         response = self.run_callable(self.loop, self.endpoint.handle, request)
+        self.assertEqual(response.status_code, 200)
 
 #pylint: skip-file

@@ -1,5 +1,9 @@
 [run]
-branch = True
+branch = False
+omit =
+    usr/app/wsgi/application.py
+    usr/runtime/*
+    usr/environ.py
 
 [report]
 exclude_lines =

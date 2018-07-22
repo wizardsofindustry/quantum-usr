@@ -15,8 +15,7 @@ class PrincipalRepository(BasePrincipalRepository):
 
     def persist(self, dto):
         """Persists an association of a Principal to a Subject."""
-        if dto.type not in self.allowed_types:
-            raise TypeError(f"Invalid storage class: {dto.type}")
+        assert dto.type in self.allowed_types
         storage_class = re.sub('[\\:\\.]', '_', dto.pop('type'))
         func = getattr(self, f'persist_{storage_class}')
         func(**dto)
