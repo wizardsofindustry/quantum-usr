@@ -20,6 +20,25 @@ relations:
     description: >
       The email address that resolves to the `gsid`.
 
+- relname: phonenumbers
+  classname: Phonenumber
+  description: >
+    Maps phonenumbers to Subjects using the Global Subject Identifier (GSID).
+  columns:
+  - name: gsid
+    type: uuid
+    nullable: false
+    description: >
+      Specifies the Global Subject Identifier (GSID), uniquely
+      identifying a Subject within the boundaries of a Quantum
+      system.
+  - name: phonenumber
+    type: string
+    primary_key: true
+    nullable: false
+    description: >
+      The phonenumber that resolves to the `gsid`.
+
 - relname: certificatefingerprints
   classname: CertificateFingerprint
   description: >
