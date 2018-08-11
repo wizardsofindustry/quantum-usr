@@ -14,7 +14,13 @@ case $USR_RUNTIME in
   noop)
     break
   ;;
+  http)
+    export USR_COMPONENTS="http"
+    python3 -m usr.runtime -c $USR_CONFIG_FILE
+    break
+  ;;
   service)
     python3 -m usr.runtime -c $USR_CONFIG_FILE
+    break
   ;;
 esac
