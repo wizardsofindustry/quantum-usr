@@ -28,6 +28,12 @@ if os.getenv('USR_SECRETS'):
 # module-level constants.
 os.environ.setdefault('USR_SECRET_KEY',
     "30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460")
+os.environ.setdefault('USR_DEBUG',
+    "1")
+os.environ.setdefault('USR_IOC_DEFAULTS',
+    "/etc/usr/ioc.conf")
+os.environ.setdefault('USR_IOC_DIR',
+    "/etc/usr/ioc.conf.d/")
 os.environ.setdefault('USR_RDBMS_DSN',
     "postgresql+psycopg2://usr:usr@rdbms:5432/usr")
 os.environ.setdefault('USR_HTTP_ADDR',
@@ -37,6 +43,9 @@ os.environ.setdefault('USR_HTTP_PORT',
 
 
 SECRET_KEY = os.getenv('USR_SECRET_KEY')
+DEBUG = os.getenv('USR_DEBUG', '').lower() in ('yes', '1', 'true')
+IOC_DEFAULTS = os.getenv('USR_IOC_DEFAULTS')
+IOC_DIR = os.getenv('USR_IOC_DIR')
 RDBMS_DSN = os.getenv('USR_RDBMS_DSN')
 HTTP_ADDR = os.getenv('USR_HTTP_ADDR')
 HTTP_PORT = os.getenv('USR_HTTP_PORT')
