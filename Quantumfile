@@ -48,13 +48,29 @@ environ:
   variables:
   - name: SECRET_KEY
     default: 30b465e0c882f37671cca0f142ec292493c1009c0baa0a39aa684b1259301460
-    comment: Not for production use!
+    comment: Symmetric key for cryptographic operations.
+  - name: DEBUG
+    default: '1'
+    type: "switch"
+    comment: Run the application in debug mode.
+  - name: IOC_DEFAULTS
+    default: /etc/usr/ioc.conf
+    comments: >
+      Specifies the configuration file holding defaults for the inversion-of-control
+      context.
+  - name: IOC_DIR
+    default: /etc/usr/ioc.conf.d/
+    comments: >
+      Specifies a directory where the application will look for inversion-of-control
+      configuration files.
   - name: RDBMS_DSN
     default: postgresql+psycopg2://usr:usr@rdbms:5432/usr
   - name: HTTP_ADDR
     default: '0.0.0.0'
+    comment: Listen address for the HTTP interface.
   - name: HTTP_PORT
     default: '8443'
+    comment: Bind port for the HTTP interface.
 
 
 # The application is currently not configured as an event listener. To
@@ -136,6 +152,12 @@ security:
 #- url: git+https://github.com/wizardsofindustry/quantum-usr.git
 
 
+# Configuration related to the automated testing of the Quantum
+# service.
+testing:
+  min_coverage: 100
+
+
 # Docker configuration.
 docker:
 
@@ -156,9 +178,15 @@ docker:
     # login and publish to a Docker registry.
     credentials_id: wizards-docker-repo
 
+    # Indicates if the CI pipeline may use VCS tags to tag
+    # containers.
+    use_tags: false
 
-# This section configures relational database systems, such as PostgreSQl
-# or MySQL.
+    # Specifies the branches that will trigger a container build
+    # by default.
+    build_branches: []
+
+
 
 
 # This section contains SG related settings and should not be modified under
