@@ -62,17 +62,3 @@ The **Universal Subject Resolver** application can be installed as a Python pack
 running the following command in your terminal:
 
 `pip3 install -r requirements.txt && python3 setup.py install`
-
-
-## Developing
-
-
-### Branching strategy
-
-The **Universal Subject Resolver** project uses the *Gitflow Workflow* as its
-branching strategy. The image below provides a schematic overview of this
-workflow:
-
-![alt text](https://nvie.com/img/git-model@2x.png "Gitflow Workflow")
-
-[Detailed explanation of the Gitflow Workflow](https://nvie.com/posts/a-successful-git-branching-model)

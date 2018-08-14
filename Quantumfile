@@ -155,7 +155,7 @@ security:
 # Configuration related to the automated testing of the Quantum
 # service.
 testing:
-  min_coverage: 100
+  min_coverage: 98
 
 
 # Docker configuration.
@@ -180,11 +180,18 @@ docker:
 
     # Indicates if the CI pipeline may use VCS tags to tag
     # containers.
-    use_tags: False
+    use_tags: True
 
     # Specifies the branches that will trigger a container build
     # by default.
-    build_branches: []
+    build_branches:
+    - name: master
+      tag: latest
+    - name: develop
+      tag: latest-testing
+    - pattern: "^(release|version|sprint)-.*$"
+    - pattern: "^(hotfix|fix)-.*$"
+    - pattern: "^(feature|task)-.*$"
 
 
 
