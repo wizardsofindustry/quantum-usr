@@ -45,4 +45,28 @@ class X509SubjectIdentificationTestCase(sq.test.SystemTestCase):
         response = self.run_callable(self.loop, self.endpoint.handle, request)
         self.assertEqual(response.status_code, 200)
 
+
+@sq.test.integration
+class PhonenumberSubjectIdentificationTestCase(sq.test.SystemTestCase):
+    gsid ="00000000-0000-0000-0000-000000000000"
+    phonenumber = "+31612345678"
+    metadata = orm.Relation.metadata
+
+    def setUp(self):
+        super(PhonenumberSubjectIdentificationTestCase, self).setUp()
+        self.endpoint = IdentificationEndpoint()
+        self.service = ioc.require('SubjectIdentificationService')
+        self.service.associate(self.gsid,
+            {'type': 'phonenumber', 'phonenumber': self.phonenumber})
+
+    def test_subject_is_identified_by_phonenumber(self):
+        """Identify a Subject by phonenumber."""
+        dto = {
+            'type': 'phonenumber',
+            'phonenumber': self.phonenumber
+        }
+        request = self.request_factory(method='POST', json=dto)
+        response = self.run_callable(self.loop, self.endpoint.handle, request)
+        self.assertEqual(response.status_code, 200)
+
 #pylint: skip-file

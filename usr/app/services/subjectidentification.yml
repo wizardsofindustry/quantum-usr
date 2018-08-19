@@ -86,6 +86,18 @@ methods:
       by string `gsid`.
     returns:
       None
+- name: associate_phonenumber
+  parameters:
+  - name: gsid
+  - name: phonenumber
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Associate an ITU-T E.164 formatted phonenumber to the **Subject**
+      identified by string `gsid`.
+    returns:
+      None
 - name: identify
   parameters:
   - name: principal
@@ -105,6 +117,16 @@ methods:
     heading: >
       Identify a Subject using the Issuer Distinguished Name (DN) and
       Subject DN, email address and certificate fingerprint.
+    returns: >
+      Subject
+- name: identify_phonenumber
+  parameters:
+  - name: phonenumber
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Identify a Subject using an international phonenumber
     returns: >
       Subject
 

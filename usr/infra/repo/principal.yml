@@ -79,6 +79,18 @@ methods:
       Subject.
     returns: >
       None
+- name: persist_phonenumber
+  parameters:
+  - name: gsid
+  - name: phonenumber
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Persists an association of an ITU-T E.164 phonenumber to a
+      Subject.
+    returns: >
+      None
 - name: persist_x509_distinguished_names
   parameters:
   - name: gsid

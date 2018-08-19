@@ -11,6 +11,9 @@ class BasePrincipalRepository(Repository):
     def persist_email(self, gsid, email):
         raise NotImplementedError("Subclasses must override this method.")
 
+    def persist_phonenumber(self, gsid, phonenumber):
+        raise NotImplementedError("Subclasses must override this method.")
+
     def persist_x509_distinguished_names(self, gsid, names):
         raise NotImplementedError("Subclasses must override this method.")
 
