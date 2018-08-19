@@ -24,9 +24,10 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
             dto = self.dto(gsid=gsid, **principal)
             self.repo.persist(dto)
 
-    def associate_phonenumber(self, gsid, **principal):
+    def associate_phonenumber(self, gsid, phonenumber):
         """Associates a phonenumber to a **Subject**."""
-        self.repo.persist(self.dto(type='phonenumber', gsid=gsid, **principal))
+        self.repo.persist(
+            self.dto(type='phonenumber', gsid=gsid, phonenumber=phonenumber))
 
     def identify(self, principal):
         """Identify a Subject using the given Principal object."""
