@@ -216,6 +216,21 @@ components:
           type: string
           nullable: false
 
+    PhonenumberPrincipal:
+      description: >
+        An ITU-T E.164 formatted phonenumber to identity the **Subject**.
+      type: object
+      nullable: false
+      required:
+      - phonenumber
+      properties:
+        phonenumber:
+          description: >
+            A string holding an ITU-T E.164 formatted phonenumber.
+          type: string
+          format: phonenumber
+          nullable: false
+
     Principal:
       description: >
         Represents an identity of a Subject.
@@ -223,10 +238,12 @@ components:
       nullable: false
       oneOf:
       - $ref: "#/components/schemas/X509Principal"
+      - $ref: "#/components/schemas/PhonenumberPrincipal"
       discriminator:
         propertyName: type
         mapping:
           x509: "#/components/schemas/X509Principal"
+          phonenumber: "#/components/schemas/PhonenumberPrincipal"
       required:
       - type
       properties:
@@ -236,6 +253,7 @@ components:
           type: string
           enum:
           - x509
+          - phonenumber
 
     Version:
       type: object
