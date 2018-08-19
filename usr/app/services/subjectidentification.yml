@@ -119,6 +119,16 @@ methods:
       Subject DN, email address and certificate fingerprint.
     returns: >
       Subject
+- name: identify_phonenumber
+  parameters:
+  - name: phonenumber
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Identify a Subject using an international phonenumber
+    returns: >
+      Subject
 
 
 # A list containing dependencies from the inversion-of-control
