@@ -24,6 +24,10 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
             dto = self.dto(gsid=gsid, **principal)
             self.repo.persist(dto)
 
+    def associate_phonenumber(self, gsid, **principal):
+        """Associates a phonenumber to a **Subject**."""
+        self.repo.persist(self.dto(type='phonenumber', gsid=gsid, **principal))
+
     def identify(self, principal):
         """Identify a Subject using the given Principal object."""
         func = self._get_method(principal, 'identify')
@@ -55,4 +59,4 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
 
     # TODO: Docstring updating messes up the code if this is put at the
     # top of the class.
-    allowed_methods = ['x509']
+    allowed_methods = ['x509', 'phonenumber']
