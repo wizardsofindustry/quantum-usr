@@ -1,5 +1,6 @@
 from .error import Error
 from .health import Health
+from .phonenumberprincipal import PhonenumberPrincipal
 from .principal import Principal
 from .servicenotavailable import ServiceNotAvailable
 from .subject import Subject
