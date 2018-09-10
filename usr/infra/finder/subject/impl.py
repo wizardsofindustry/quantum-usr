@@ -1,8 +1,6 @@
 """Declares :class:`SubjectFinder`."""
 import re
 
-from sqlalchemy.orm.exc import NoResultFound
-
 from ...orm import CertificateFingerprint
 from ...orm import CertificateKeyIdentifier
 from ...orm import CertificateNames
