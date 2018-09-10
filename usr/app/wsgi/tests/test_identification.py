@@ -1,3 +1,4 @@
+import json
 import unittest
 
 import ioc
@@ -68,5 +69,9 @@ class PhonenumberSubjectIdentificationTestCase(sq.test.SystemTestCase):
         request = self.request_factory(method='POST', json=dto)
         response = self.run_callable(self.loop, self.endpoint.handle, request)
         self.assertEqual(response.status_code, 200)
+
+        result = json.loads(response.response[0])
+        self.assertIn('gsid', result)
+        self.assertEqual(result['gsid'], self.gsid)
 
 #pylint: skip-file
