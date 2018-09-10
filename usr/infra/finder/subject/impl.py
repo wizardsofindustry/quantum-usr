@@ -7,6 +7,7 @@ from ...orm import CertificateFingerprint
 from ...orm import CertificateKeyIdentifier
 from ...orm import CertificateNames
 from ...orm import EmailAddress
+from ...orm import Phonenumber
 from .base import BaseSubjectFinder
 
 
@@ -24,12 +25,10 @@ class SubjectFinder(BaseSubjectFinder):
         for dto in (principals or []):
             principal_type = re.sub('[\\.\\:]', '_', dto.pop('type'))
             attname = f'by_{principal_type}'
-            if not hasattr(self, attname):
-                continue
-            try:
-                principal = getattr(self, attname)(**dto)
-            except NoResultFound:
-                continue
+
+            # The handler function is assumed to handle all exception cases, such
+            # as no principal existing.
+            principal = getattr(self, attname)(**dto)
 
             # Only append the result if the gsid is not already seen.
             if principal is None or principal.gsid in seen:
@@ -46,6 +45,16 @@ class SubjectFinder(BaseSubjectFinder):
             .one()
         return self.dto({
             'type': 'email',
+            'gsid': dao.gsid.hex,
+        })
+
+    def by_phonenumber(self, phonenumber):
+        """Resolve a Subject by phone number."""
+        dao = self.session.query(Phonenumber)\
+            .filter(Phonenumber.phonenumber == phonenumber)\
+            .one()
+        return self.dto({
+            'type': 'phonenumber',
             'gsid': dao.gsid.hex,
         })
 

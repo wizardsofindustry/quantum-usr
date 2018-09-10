@@ -30,5 +30,8 @@ class BaseSubjectIdentificationService(Service):
     def identify_x509(self, crt):
         raise NotImplementedError("Subclasses must override this method.")
 
+    def identify_phonenumber(self, phonenumber):
+        raise NotImplementedError("Subclasses must override this method.")
+
 
 # pylint: skip-file
