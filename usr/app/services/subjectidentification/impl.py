@@ -31,8 +31,11 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
 
     def identify(self, principal):
         """Identify a Subject using the given Principal object."""
+        using = principal['type']
         func = self._get_method(principal, 'identify')
         subjects = func(**principal)
+        if not subjects:
+            raise self.SubjectDoesNotExist([using])
         return subjects
 
     def identify_x509(self, crt):
