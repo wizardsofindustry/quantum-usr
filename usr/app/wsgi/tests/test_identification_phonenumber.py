@@ -29,13 +29,21 @@ class PhonenumberSubjectIdentificationTestCase(sq.test.SystemTestCase):
             'type': 'phonenumber',
             'phonenumber': self.phonenumber
         }
-        request = self.request_factory(method='POST', json=dto)
-        response = self.run_callable(self.loop, self.endpoint.handle, request)
+        response = self.request(self.endpoint.handle, method='POST', json=dto)
         self.assertEqual(response.status_code, 200)
 
         result = json.loads(response.response[0])
         self.assertIn('gsid', result)
         self.assertEqual(result['gsid'], self.gsid.replace('-', ''))
+
+    def test_subject_is_identified_by_phonenumber(self):
+        """Identify a Subject by phonenumber."""
+        dto = {
+            'type': 'phonenumber',
+            'phonenumber': "+31687654321"
+        }
+        response = self.request(self.endpoint.handle, method='POST', json=dto)
+        self.assertEqual(response.status_code, 404)
 
 
 #pylint: skip-file

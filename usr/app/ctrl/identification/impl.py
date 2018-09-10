@@ -13,7 +13,7 @@ class IdentificationCtrl(BaseIdentificationCtrl):
         principals = []
         try:
             principals = self.subject.identify(request.payload)
-        except self.subject.UnknownPrincipalType:
+        except (self.subject.UnknownPrincipalType, self.subject.SubjectDoesNotExist):
             status = 404
         if principals:
             if len(principals) > 1:

@@ -1,6 +1,8 @@
 """Declares :class:`SubjectFinder`."""
 import re
 
+from sqlalchemy.orm.exc import NoResultFound
+
 from ...orm import CertificateFingerprint
 from ...orm import CertificateKeyIdentifier
 from ...orm import CertificateNames
@@ -26,7 +28,10 @@ class SubjectFinder(BaseSubjectFinder):
 
             # The handler function is assumed to handle all exception cases, such
             # as no principal existing.
-            principal = getattr(self, attname)(**dto)
+            try:
+                principal = getattr(self, attname)(**dto)
+            except NoResultFound:
+                principal = None
 
             # Only append the result if the gsid is not already seen.
             if principal is None or principal.gsid in seen:
