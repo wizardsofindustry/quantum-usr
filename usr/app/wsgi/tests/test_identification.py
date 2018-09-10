@@ -45,5 +45,15 @@ class X509SubjectIdentificationTestCase(sq.test.SystemTestCase):
         response = self.run_callable(self.loop, self.endpoint.handle, request)
         self.assertEqual(response.status_code, 200)
 
+    def test_unknown_principal_type_returns_404(self):
+        """Identify a Subject by X.509 certificate."""
+        dto = {
+            'type': 'foo',
+            'crt': bytes.hex(self.pem)
+        }
+        request = self.request_factory(method='POST', json=dto)
+        response = self.run_callable(self.loop, self.endpoint.handle, request)
+        self.assertEqual(response.status_code, 404)
+
 
 #pylint: skip-file

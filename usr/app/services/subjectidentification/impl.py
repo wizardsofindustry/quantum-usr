@@ -33,8 +33,6 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
         """Identify a Subject using the given Principal object."""
         func = self._get_method(principal, 'identify')
         subjects = func(**principal)
-        if len(subjects) > 1:
-            raise self.MultipleSubjectsReturned(subjects)
         return subjects
 
     def identify_x509(self, crt):
