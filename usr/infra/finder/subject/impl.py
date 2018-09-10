@@ -7,6 +7,7 @@ from ...orm import CertificateFingerprint
 from ...orm import CertificateKeyIdentifier
 from ...orm import CertificateNames
 from ...orm import EmailAddress
+from ...orm import Phonenumber
 from .base import BaseSubjectFinder
 
 
@@ -46,6 +47,16 @@ class SubjectFinder(BaseSubjectFinder):
             .one()
         return self.dto({
             'type': 'email',
+            'gsid': dao.gsid.hex,
+        })
+
+    def by_phonenumber(self, phonenumber):
+        """Resolve a Subject by phone number."""
+        dao = self.session.query(Phonenumber)\
+            .filter(Phonenumber.phonenumber == phonenumber)\
+            .one()
+        return self.dto({
+            'type': 'phonenumber',
             'gsid': dao.gsid.hex,
         })
 
