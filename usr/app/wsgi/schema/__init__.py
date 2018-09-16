@@ -1,3 +1,4 @@
+from .bankidentificationnumberprincipal import BankIdentificationNumberPrincipal
 from .error import Error
 from .health import Health
 from .phonenumberprincipal import PhonenumberPrincipal
