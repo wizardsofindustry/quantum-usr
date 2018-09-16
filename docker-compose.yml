@@ -36,6 +36,7 @@ services:
     - USR_IOC_DEFAULTS=/etc/usr/ioc.conf
     - USR_IOC_DIR=/etc/usr/ioc.conf.d/
     - USR_RDBMS_DSN=postgresql+psycopg2://usr:usr@rdbms:5432/usr
+    - USR_GIT_COMMIT
     - USR_HTTP_ADDR=0.0.0.0
     - USR_HTTP_PORT=8443
     depends_on:
@@ -49,6 +50,7 @@ services:
     - USR_IOC_DEFAULTS=/etc/usr/ioc.conf
     - USR_IOC_DIR=/etc/usr/ioc.conf.d/
     - USR_RDBMS_DSN=postgresql+psycopg2://usr:usr@rdbms:5432/usr
+    - USR_GIT_COMMIT
     - USR_HTTP_ADDR=0.0.0.0
     - USR_HTTP_PORT=8443
     depends_on:
