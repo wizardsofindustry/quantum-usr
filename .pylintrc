@@ -11,4 +11,4 @@ generated-members=sq.*
 notes=
 
 [MESSAGES CONTROL]
-disable=abstract-method,invalid-name,bad-continuation
+disable=abstract-method,invalid-name,bad-continuation,redefined-builtin

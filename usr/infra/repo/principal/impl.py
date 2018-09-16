@@ -1,6 +1,7 @@
 """Declares :class:`PrincipalRepository`."""
 import re
 
+from ...orm import BankIdentificationNumber
 from ...orm import CertificateFingerprint
 from ...orm import CertificateKeyIdentifier
 from ...orm import CertificateNames
@@ -32,6 +33,12 @@ class PrincipalRepository(BasePrincipalRepository):
         """Persists an association of an RFC822 email address to a Subject."""
         self.session.add(EmailAddress(gsid=gsid, email=email))
 
+    def persist_idin_bin(self, gsid, bin):
+        """Persists an association of a Bank Identification Number (BIN), used
+        in the iDIN authentication scheme, to a Subject.
+        """
+        self.session.add(BankIdentificationNumber(gsid=gsid, bin=bin))
+
     def persist_x509_distinguished_names(self, gsid, names):
         """Persists an association of a Issuer DN/Subject DN combination to a
         Subject.
@@ -56,4 +63,5 @@ class PrincipalRepository(BasePrincipalRepository):
         'x509.keyid',
         'email',
         'phonenumber',
+        'idin:bin'
     ]

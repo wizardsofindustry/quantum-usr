@@ -34,6 +34,7 @@ variables. The table below provides an overview of the possible values:
 |-------|------------------|------------------------------------------------------------------|
 |literal|`USR_RUNTIME`     |`service`                                                         |
 |switch |`USR_DEBUG`       |`1`                                                               |
+|literal|`USR_GIT_COMMIT`  |N/A                                                               |
 |literal|`USR_HTTP_ADDR`   |`0.0.0.0`                                                         |
 |literal|`USR_HTTP_PORT`   |`8443`                                                            |
 |literal|`USR_IOC_DEFAULTS`|`/etc/usr/ioc.conf`                                               |

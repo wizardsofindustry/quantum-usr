@@ -1,3 +1,4 @@
+from .idin_bankidentificationnumbers import BankIdentificationNumber
 from .certificatefingerprints import CertificateFingerprint
 from .certificatekeyids import CertificateKeyIdentifier
 from .certificatenames import CertificateNames

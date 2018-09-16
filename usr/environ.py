@@ -47,6 +47,7 @@ DEBUG = os.getenv('USR_DEBUG', '').lower() in ('yes', '1', 'true')
 IOC_DEFAULTS = os.getenv('USR_IOC_DEFAULTS')
 IOC_DIR = os.getenv('USR_IOC_DIR')
 RDBMS_DSN = os.getenv('USR_RDBMS_DSN')
+GIT_COMMIT = os.getenv('USR_GIT_COMMIT')
 HTTP_ADDR = os.getenv('USR_HTTP_ADDR')
 HTTP_PORT = os.getenv('USR_HTTP_PORT')
 DEPLOYMENT_ENV = os.getenv('QUANTUM_DEPLOYMENT_ENV') or 'production'

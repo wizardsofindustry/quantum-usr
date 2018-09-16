@@ -98,6 +98,18 @@ methods:
       identified by string `gsid`.
     returns:
       None
+- name: associate_idin_bin
+  parameters:
+  - name: gsid
+  - name: bin
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Associate an Bank Identification Number (BIN), used in the iDIN authentication
+      scheme, to the **Subject** identified by string `gsid`.
+    returns:
+      None
 - name: identify
   parameters:
   - name: principal

@@ -3,6 +3,7 @@ import re
 
 from sqlalchemy.orm.exc import NoResultFound
 
+from ...orm import BankIdentificationNumber
 from ...orm import CertificateFingerprint
 from ...orm import CertificateKeyIdentifier
 from ...orm import CertificateNames
@@ -58,6 +59,16 @@ class SubjectFinder(BaseSubjectFinder):
             .one()
         return self.dto({
             'type': 'phonenumber',
+            'gsid': dao.gsid.hex,
+        })
+
+    def by_idin_bin(self, bin):
+        """Resolve a Subject by Bank Identification Number (BIN)."""
+        dao = self.session.query(BankIdentificationNumber)\
+            .filter(BankIdentificationNumber.bin == bin)\
+            .one()
+        return self.dto({
+            'type': 'idin:bin',
             'gsid': dao.gsid.hex,
         })
 

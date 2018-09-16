@@ -29,6 +29,12 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
         self.repo.persist(
             self.dto(type='phonenumber', gsid=gsid, phonenumber=phonenumber))
 
+    def associate_idin_bin(self, gsid, bin):
+        """Associate an Bank Identification Number (BIN), used in the iDIN
+        authentication scheme, to the **Subject** identified by string `gsid`.
+        """
+        self.repo.persist(self.dto(type="idin:bin", gsid=gsid, bin=bin))
+
     def identify(self, principal):
         """Identify a Subject using the given Principal object."""
         using = principal['type']
@@ -50,14 +56,22 @@ class SubjectIdentificationService(BaseSubjectIdentificationService):
         return self.finder.by(
             [self.dto(type='phonenumber', phonenumber=phonenumber)])
 
+    def identify_idin_bin(self, bin):
+        """Identify a **Subject** using a Bank Identification Number (BIN),
+        used in the iDIN authentication scheme.
+        """
+        return self.finder.by(
+            [self.dto(type='idin:bin', bin=bin)])
+
     def _get_method(self, principal, action):
         assert action in ('identify', 'associate')
         principal_type = principal.pop('type', None)
         if principal_type not in self.allowed_methods:
             raise self.UnknownPrincipalType(
                 f'Unknown Principal Type: {principal_type}')
+        principal_type = principal_type.replace(':', '_')
         return getattr(self, f'{action}_{principal_type}', None)
 
     # TODO: Docstring updating messes up the code if this is put at the
     # top of the class.
-    allowed_methods = ['x509', 'phonenumber']
+    allowed_methods = ['x509', 'phonenumber', 'idin:bin']

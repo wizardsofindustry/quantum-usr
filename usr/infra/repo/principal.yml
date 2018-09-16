@@ -91,6 +91,18 @@ methods:
       Subject.
     returns: >
       None
+- name: persist_idin_bin
+  parameters:
+  - name: gsid
+  - name: bin
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Persists an association of a Bank Identification Number (BIN), used
+      in the iDIN authentication scheme, to a Subject.
+    returns: >
+      None
 - name: persist_x509_distinguished_names
   parameters:
   - name: gsid

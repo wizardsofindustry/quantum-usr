@@ -216,6 +216,22 @@ components:
           type: string
           nullable: false
 
+    BankIdentificationNumberPrincipal:
+      description: >
+        A Bank Identification Number (BIN) returned by the iDIN issuer
+        after succesful login dialog.
+      type: object
+      nullable: false
+      required:
+      - bin
+      properties:
+        bin:
+          description: >
+            A string holding the Bank Identification Number (BIN). May
+            be up to 256 characters.
+          type: string
+          nullable: false
+
     PhonenumberPrincipal:
       description: >
         An ITU-T E.164 formatted phonenumber to identity the **Subject**.
@@ -239,11 +255,13 @@ components:
       oneOf:
       - $ref: "#/components/schemas/X509Principal"
       - $ref: "#/components/schemas/PhonenumberPrincipal"
+      - $ref: "#/components/schemas/BankIdentificationNumberPrincipal"
       discriminator:
         propertyName: type
         mapping:
           x509: "#/components/schemas/X509Principal"
           phonenumber: "#/components/schemas/PhonenumberPrincipal"
+          "idin:bin": "#/components/schemas/BankIdentificationNumberPrincipal"
       required:
       - type
       properties:

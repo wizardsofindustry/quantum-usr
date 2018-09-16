@@ -24,6 +24,9 @@ class BaseSubjectIdentificationService(Service):
     def associate_phonenumber(self, gsid, phonenumber):
         raise NotImplementedError("Subclasses must override this method.")
 
+    def associate_idin_bin(self, gsid, bin):
+        raise NotImplementedError("Subclasses must override this method.")
+
     def identify(self, principal):
         raise NotImplementedError("Subclasses must override this method.")
 

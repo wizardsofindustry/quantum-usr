@@ -3,6 +3,7 @@ see ``./etc/openapi.yml``).
 """
 import sq.schema
 
+from .bankidentificationnumberprincipal import BankIdentificationNumberPrincipal
 from .phonenumberprincipal import PhonenumberPrincipal
 from .x509principal import X509Principal
 
@@ -19,7 +20,8 @@ class Principal(sq.schema.Schema):
 
     __oneof__ = [
         X509Principal,
-        PhonenumberPrincipal
+        PhonenumberPrincipal,
+        BankIdentificationNumberPrincipal
     ]
 
 
