@@ -79,6 +79,16 @@ methods:
       Resolve a Subject by email address.
     returns:
       Subject
+- name: by_idin_bin
+  parameters:
+  - name: bin
+  args: no
+  kwargs: no
+  doc:
+    heading: >
+      Resolve a Subject by Bank Identification Number (BIN).
+    returns:
+      Subject
 - name: by_x509_fingerprint
   parameters:
   - name: fingerprint
