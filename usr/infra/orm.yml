@@ -39,6 +39,26 @@ relations:
     description: >
       The phonenumber that resolves to the `gsid`.
 
+- relname: idin_bankidentificationnumbers
+  classname: BankIdentificationNumber
+  description: >
+    Maps Bank Identification Numbers (BINs) to Subjects using the
+    Global Subject Identifier (GSID).
+  columns:
+  - name: gsid
+    type: uuid
+    nullable: false
+    description: >
+      Specifies the Global Subject Identifier (GSID), uniquely
+      identifying a Subject within the boundaries of a Quantum
+      system.
+  - name: bin
+    type: string
+    primary_key: true
+    nullable: false
+    description: >
+      The BIN that resolves to the `gsid`.
+
 - relname: certificatefingerprints
   classname: CertificateFingerprint
   description: >
