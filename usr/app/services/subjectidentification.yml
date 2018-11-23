@@ -1,3 +1,4 @@
+---
 #######################################################################
 #
 # SERVICE DEFINITION FOR SUBJECTIDENTIFICATIONSERVICE
@@ -65,8 +66,8 @@ methods:
   parameters:
   - name: gsid
   - name: principal
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Associates Principal `principal` to the Subject identified
@@ -77,8 +78,8 @@ methods:
   parameters:
   - name: gsid
   - name: crt
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Associates the Principals in a X.509 certificate, signed by a
@@ -90,8 +91,8 @@ methods:
   parameters:
   - name: gsid
   - name: phonenumber
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Associate an ITU-T E.164 formatted phonenumber to the **Subject**
@@ -102,19 +103,20 @@ methods:
   parameters:
   - name: gsid
   - name: bin
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
-      Associate an Bank Identification Number (BIN), used in the iDIN authentication
-      scheme, to the **Subject** identified by string `gsid`.
+      Associate an Bank Identification Number (BIN), used in the
+      iDIN authentication scheme, to the **Subject** identified by
+      string `gsid`.
     returns:
       None
 - name: identify
   parameters:
   - name: principal
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Identify a Subject using the given Principal object.
@@ -123,8 +125,8 @@ methods:
 - name: identify_x509
   parameters:
   - name: crt
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Identify a Subject using the Issuer Distinguished Name (DN) and
@@ -134,8 +136,8 @@ methods:
 - name: identify_phonenumber
   parameters:
   - name: phonenumber
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Identify a Subject using an international phonenumber

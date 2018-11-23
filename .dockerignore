@@ -16,4 +16,7 @@ pip-delete-this-directory.txt
 coverage.xml
 *,cover
 *.log
-.git
+node_modules
+var
+dist
+assets/dist

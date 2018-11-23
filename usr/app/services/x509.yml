@@ -1,3 +1,4 @@
+---
 #######################################################################
 #
 # SERVICE DEFINITION FOR X509SERVICE
@@ -68,8 +69,8 @@ methods:
     doc: >
       A byte-sequence containing an X.509 certificate in the
       PEM-encoding.
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Extract Principals from a X.509 client certificate.
@@ -79,8 +80,8 @@ methods:
   parameters:
   - name: crt
     type: cryptography.x509.Certificate
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Extract email addresses from the Subject Alternative Names (SANs).
@@ -89,8 +90,8 @@ methods:
 - name: email_from_subject
   parameters:
   - name: crt
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Extract the email address from the Subject Distinguished Name (DN)
@@ -99,8 +100,8 @@ methods:
 - name: fingerprint
   parameters:
   - name: crt
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Extract the fingerprint from a X.509 certificate.
@@ -109,8 +110,8 @@ methods:
 - name: distinguished_names
   parameters:
   - name: crt
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Return a tuple containing the Issuer Distinguished Name (DN)
@@ -120,8 +121,8 @@ methods:
 - name: keyid
   parameters:
   - name: crt
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Return the hex-encoded, SHA-256 hashed public key associated

@@ -1,3 +1,4 @@
+---
 #######################################################################
 #
 # REPOSITORY DEFINITION FOR PRINCIPALREPOSITORY
@@ -60,8 +61,8 @@ methods:
 - name: persist
   parameters:
   - name: dto
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
         Persists an association of a Principal to a Subject.
@@ -71,8 +72,8 @@ methods:
   parameters:
   - name: gsid
   - name: email
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Persists an association of an RFC822 email address to a
@@ -83,8 +84,8 @@ methods:
   parameters:
   - name: gsid
   - name: phonenumber
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Persists an association of an ITU-T E.164 phonenumber to a
@@ -95,8 +96,8 @@ methods:
   parameters:
   - name: gsid
   - name: bin
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Persists an association of a Bank Identification Number (BIN), used
@@ -107,8 +108,8 @@ methods:
   parameters:
   - name: gsid
   - name: names
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Persists an association of a Issuer DN/Subject DN combination
@@ -119,8 +120,8 @@ methods:
   parameters:
   - name: gsid
   - name: fingerprint
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Persists an association of a X.509 certificate fingerprint
@@ -131,8 +132,8 @@ methods:
   parameters:
   - name: gsid
   - name: keyid
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Persists an association of a SHA-256 public key to a Subject.

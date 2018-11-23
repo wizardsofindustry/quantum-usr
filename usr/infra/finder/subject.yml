@@ -1,3 +1,4 @@
+---
 #######################################################################
 #
 # FINDER DEFINITION FOR SUBJECTFINDER
@@ -60,8 +61,8 @@ methods:
 - name: by
   parameters:
   - name: principals
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Resolve a list of Principal objects to a Global
@@ -72,8 +73,8 @@ methods:
 - name: by_email
   parameters:
   - name: email
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Resolve a Subject by email address.
@@ -82,8 +83,8 @@ methods:
 - name: by_idin_bin
   parameters:
   - name: bin
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Resolve a Subject by Bank Identification Number (BIN).
@@ -92,8 +93,8 @@ methods:
 - name: by_x509_fingerprint
   parameters:
   - name: fingerprint
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Resolve a Subject by using the fingerprint of a X.509
@@ -103,8 +104,8 @@ methods:
 - name: by_x509_distinguished_names
   parameters:
   - name: names
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Resolve a Subject using the Distinguished Names (DNs)
@@ -115,8 +116,8 @@ methods:
 - name: by_x509_keyid
   parameters:
   - name: keyid
-  args: no
-  kwargs: no
+  args: false
+  kwargs: false
   doc:
     heading: >
       Resolve a Subject using the SHA-256 hashed public key

@@ -62,8 +62,8 @@ relations:
 - relname: certificatefingerprints
   classname: CertificateFingerprint
   description: >
-    Maps the fingerprint of a X.509 certificate, issued by a trusted Certification
-    Authority (CA), to a Global Subject Identifier (GSID).
+    Maps the fingerprint of a X.509 certificate, issued by a trusted
+    Certification Authority (CA), to a Global Subject Identifier (GSID).
   columns:
   - name: gsid
     type: uuid
