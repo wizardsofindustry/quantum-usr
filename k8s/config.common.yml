@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config.common.usr
+  namespace: citadel
+data:
+  # USR_GIT_COMMIT: ""
+  USR_HTTP_ADDR: "0.0.0.0"
+  USR_HTTP_PORT: "8443"
+  USR_IOC_DEFAULTS: "/etc/usr/ioc.conf"
+  USR_IOC_DIR: "/etc/usr/ioc.conf.d/"

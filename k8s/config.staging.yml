@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config.staging.usr
+  namespace: citadel
+data:
+  USR_DEBUG: "1"
+  USR_LOGLEVEL: "INFO"
+  USR_ROLE: "default"

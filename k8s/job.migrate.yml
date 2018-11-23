@@ -1,0 +1,58 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: citadel
+  name: usr-job-migrate-${BUILD_ID}
+  labels:
+    app: usr
+    onfinish: "destroy"
+    env: ${QUANTUM_DEPLOYMENT_ENV}
+    deployment: ${QUANTUM_DEPLOYMENT_NAME}
+spec:
+  template:
+    metadata:
+      labels:
+        app: usr
+        onfinish: "destroy"
+        env: ${QUANTUM_DEPLOYMENT_ENV}
+        deployment: ${QUANTUM_DEPLOYMENT_NAME}
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+      - name: dockerhub.wizards
+      containers:
+      - image: wizardsofindustry/quantum-usr:${IMAGE_TAG}
+        name: usr-job-migrate
+        command:
+        - "alembic"
+        - "upgrade"
+        - "head"
+        env:
+        - name: DCCP_ROLE
+          value: default
+        - name: QUANTUM_DEPLOYMENT_ENV
+          value: ${QUANTUM_DEPLOYMENT_ENV}
+        - name: QUANTUM_DEPLOYMENT_NAME
+          value: ${QUANTUM_DEPLOYMENT_NAME}
+        - name: USR_RDBMS_DSN
+          valueFrom:
+            secretKeyRef:
+              key: dsn
+              name: rdbms.usr
+        - name: USR_ROLE
+          value: default
+        - name: USR_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secret_key
+              name: application.secret.usr
+        envFrom:
+        - configMapRef:
+            name: config.common.usr
+        - configMapRef:
+            name: config.${QUANTUM_DEPLOYMENT_ENV}.usr
+  activeDeadlineSeconds: 120
+  restartPolicy: Never
+  parallelism: 1
+  completions: 1
