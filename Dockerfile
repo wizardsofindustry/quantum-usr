@@ -33,6 +33,8 @@ COPY etc/ etc/
 COPY etc/ /etc/usr
 COPY usr /app/usr
 
+COPY alembic.ini alembic.ini
+COPY migrations/ migrations/
 COPY --from=builder .author-email .
 COPY --from=builder .author-name .
 COPY --from=builder .version .
